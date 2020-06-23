@@ -1,11 +1,12 @@
 import React from 'react';
-import Data from './ejemplo_100_filas'
-import {ScatterChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Scatter} from 'recharts'
+import Data from './ejemplo_100_2'
+import {ScatterChart, CartesianGrid, XAxis, YAxis, Tooltip, Scatter} from 'recharts'
 
 const cardStyle =  {
-    height: "350px",
-    width: "350px",
-    boxShadow: "-2px 0px 10px -2px"
+  height: "350px",
+  width: "350px",
+  boxShadow: "-2px 0px 10px -2px",
+  padding: "10px"
 }
 
 const Chart = ({xCategory, xAxis, yCategory, yAxis}) => {

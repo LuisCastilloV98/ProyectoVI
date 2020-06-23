@@ -216,7 +216,7 @@ class RadarTimeline extends React.Component{
         }
 
         let slider = yearSliderContainer.createChild(am4core.Slider);
-        slider.start = 0;
+        slider.start = 1;
         slider.exportable = false;
         slider.events.on("rangechanged", function () {
             let start = slider.start;
