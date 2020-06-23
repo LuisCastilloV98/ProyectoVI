@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import '../node_modules/reveal.js/dist/reveal.css';
-import '../node_modules/reveal.js/dist/theme/black.css';
+import '../node_modules/reveal.js/dist/theme/white.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Reveal from 'reveal.js';
