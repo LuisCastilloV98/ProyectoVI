@@ -5,12 +5,14 @@ import './App.css';
 import Home from './components/home/Home';
 import RadialTimeline from './components/radial_timeline/radial_timeline';
 import Hierarchy from './components/hierarchy/hierarchy';
+import SmallMultiples from './components/small_multiples/small_multiples';
 
 function App() {
   return (
-    <div class="slides" >
+    <div className="slides" >
       <Home />
-      <RadialTimeline />
+      <RadialTimeline/>
+      <SmallMultiples />
       <Hierarchy />
     </div>
   );
