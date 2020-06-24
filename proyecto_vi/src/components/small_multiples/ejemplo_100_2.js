@@ -1,5 +1,5 @@
 export default {
-    columnas: ['Colegio','Matricula','tasa hombres','tasa mujeres','tasa repitentes','agresion verbal per capita','violencia fisica per capita','tasa de embarazos','Aprobacion de Bachillerato'],
+    columnas: ['tasa hombres','tasa mujeres','tasa repitentes','agresion verbal per capita','violencia fisica per capita','tasa de embarazos','Aprobacion de Bachillerato'],
     datos: [[0.4773413897,0.5226586103,0.2235649547,0,0.001510574018,0.003021148036,0.07401812689],
             [0.5058430718,0.4941569282,0.09682804674,0.008347245409,0.01168614357,0,0.0367278798],
             [0.4955665025,0.5044334975,0.04039408867,0.0009852216749,0.0157635468,0.006896551724,0.01871921182],
