@@ -1,30 +1,37 @@
 import React from 'react';
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
+import * as am4maps from "@amcharts/amcharts4/maps";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import {am4geodata_worldLow} from "@amcharts/amcharts4-geodata/worldLow";
+import map from "@amcharts/amcharts4-geodata/costaRicaHigh";
 import temperatures from "./bachillerato_provincia";
+import {Container, Button, Row, Col } from 'react-bootstrap';
+import am4geodata_costarica from '../../assets/data/costarica';
 
 am4core.useTheme(am4themes_animated);
 class RadarTimeline extends React.Component{
-    componentDidMount() {
+
+
+    createRadialTimeLine(){
         let startYear = 2000;
         let endYear = 2015;
         let currentYear = 2015;
         let colorSet = new am4core.ColorSet();
 
-        let chart = am4core.create("radial_timeline", am4charts.RadarChart);
-        chart.numberFormatter.numberFormat = "+#.0|#.0|0.0";
-        chart.hiddenState.properties.opacity = 0;
+        let chart_radial_timeline =  am4core.create("radial_timeline", am4charts.RadarChart);
+        chart_radial_timeline.numberFormatter.numberFormat = "+#.0|#.0|0.0";
+        chart_radial_timeline.hiddenState.properties.opacity = 0;
 
-        chart.startAngle = 270 - 180;
-        chart.endAngle = 270 + 180;
+        chart_radial_timeline.startAngle = 270 - 180;
+        chart_radial_timeline.endAngle = 270 + 180;
 
-        chart.padding(5,15,5,10)
-        chart.radius = am4core.percent(65);
-        chart.innerRadius = am4core.percent(40);
+        chart_radial_timeline.padding(5,15,5,10)
+        chart_radial_timeline.radius = am4core.percent(65);
+        chart_radial_timeline.innerRadius = am4core.percent(40);
 
         // year label goes in the middle
-        let yearLabel = chart.radarContainer.createChild(am4core.Label);
+        let yearLabel = chart_radial_timeline.radarContainer.createChild(am4core.Label);
         yearLabel.horizontalCenter = "middle";
         yearLabel.verticalCenter = "middle";
         yearLabel.fill = am4core.color("#673AB7");
@@ -32,18 +39,18 @@ class RadarTimeline extends React.Component{
         yearLabel.text = String(currentYear);
 
         // zoomout button
-        let zoomOutButton = chart.zoomOutButton;
+        let zoomOutButton = chart_radial_timeline.zoomOutButton;
         zoomOutButton.dx = 0;
         zoomOutButton.dy = 0;
         zoomOutButton.marginBottom = 15;
-        zoomOutButton.parent = chart.rightAxesContainer;
+        zoomOutButton.parent = chart_radial_timeline.rightAxesContainer;
 
         // vertical orientation for zoom out button and scrollbar to be positioned properly
-        chart.rightAxesContainer.layout = "vertical";
-        chart.rightAxesContainer.padding(120, 20, 120, 20);
+        chart_radial_timeline.rightAxesContainer.layout = "vertical";
+        chart_radial_timeline.rightAxesContainer.padding(120, 20, 120, 20);
 
         // category axis
-        let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+        let categoryAxis = chart_radial_timeline.xAxes.push(new am4charts.CategoryAxis());
         categoryAxis.renderer.grid.template.location = 0;
         categoryAxis.dataFields.category = "colegio";
 
@@ -67,7 +74,7 @@ class RadarTimeline extends React.Component{
         categoryAxis.tooltip.defaultState.properties.opacity = 0;
 
         // value axis
-        let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        let valueAxis = chart_radial_timeline.yAxes.push(new am4charts.ValueAxis());
         valueAxis.min = 0;
         valueAxis.max = 1;
         valueAxis.strictMinMax = true;
@@ -85,7 +92,7 @@ class RadarTimeline extends React.Component{
 
 
         // series
-        let series = chart.series.push(new am4charts.RadarColumnSeries());
+        let series = chart_radial_timeline.series.push(new am4charts.RadarColumnSeries());
         series.columns.template.width = am4core.percent(90);
         series.columns.template.strokeOpacity = 0;
         series.dataFields.valueY = "value" + currentYear;
@@ -107,7 +114,7 @@ class RadarTimeline extends React.Component{
 
         // cursor
         let cursor = new am4charts.RadarCursor();
-        chart.cursor = cursor;
+        chart_radial_timeline.cursor = cursor;
         cursor.behavior = "zoomX";
 
         cursor.xAxis = categoryAxis;
@@ -120,7 +127,7 @@ class RadarTimeline extends React.Component{
         cursor.fullWidthLineX = true;
 
         // year slider
-        let yearSliderContainer = chart.createChild(am4core.Container);
+        let yearSliderContainer = chart_radial_timeline.createChild(am4core.Container);
         yearSliderContainer.layout = "vertical";
         yearSliderContainer.padding(0, 38, 0, 38);
         yearSliderContainer.width = am4core.percent(100);
@@ -133,7 +140,7 @@ class RadarTimeline extends React.Component{
         yearSlider.start = 0.5;
         yearSlider.exportable = false;
 
-        chart.data = generateRadarData();
+        chart_radial_timeline.data = generateRadarData();
 
         function generateRadarData() {
             let data = [];
@@ -165,7 +172,7 @@ class RadarTimeline extends React.Component{
                 currentYear = year;
                 yearLabel.text = String(currentYear);
                 series.dataFields.valueY = "value" + currentYear;
-                chart.invalidateRawData();
+                chart_radial_timeline.invalidateRawData();
             }
         }
 
@@ -224,16 +231,245 @@ class RadarTimeline extends React.Component{
         slider.events.on("rangechanged", function () {
             let start = slider.start;
 
-            chart.startAngle = 270 - start * 175 + 1;
-            chart.endAngle = 270 + start * 175 - 1;
+            chart_radial_timeline.startAngle = 270 - start * 175 + 1;
+            chart_radial_timeline.endAngle = 270 + start * 175 - 1;
 
-            valueAxis.renderer.axisAngle = chart.startAngle;
+            valueAxis.renderer.axisAngle = chart_radial_timeline.startAngle;
         })
 
-        this.chart = chart;
+        this.chart_radial_timeline =  chart_radial_timeline;
+    }
+
+    createXYChart(){
+        var chartXY = am4core.create("chartXY", am4charts.XYChart);
+        chartXY.data = [{
+        "country": "USA",
+        "visits": 2025
+        }, {
+        "country": "China",
+        "visits": 1882
+        }, {
+        "country": "Japan",
+        "visits": 1809
+        }, {
+        "country": "Germany",
+        "visits": 1322
+        }, {
+        "country": "UK",
+        "visits": 1122
+        }, {
+        "country": "France",
+        "visits": 1114
+        }, {
+        "country": "India",
+        "visits": 984
+        }, {
+        "country": "Spain",
+        "visits": 711
+        }, {
+        "country": "Netherlands",
+        "visits": 665
+        }, {
+        "country": "Russia",
+        "visits": 580
+        }, {
+        "country": "South Korea",
+        "visits": 443
+        }, {
+        "country": "Canada",
+        "visits": 441
+        }];
+
+        chartXY.padding(40, 40, 40, 40);
+
+        var categoryAxis = chartXY.xAxes.push(new am4charts.CategoryAxis());
+        categoryAxis.renderer.grid.template.location = 0;
+        categoryAxis.dataFields.category = "country";
+        categoryAxis.renderer.minGridDistance = 60;
+        categoryAxis.renderer.inversed = true;
+        categoryAxis.renderer.grid.template.disabled = true;
+
+        var valueAxis = chartXY.yAxes.push(new am4charts.ValueAxis());
+        valueAxis.min = 0;
+        valueAxis.extraMax = 0.1;
+        //valueAxis.rangeChangeEasing = am4core.ease.linear;
+        //valueAxis.rangeChangeDuration = 1500;
+
+        var series = chartXY.series.push(new am4charts.ColumnSeries());
+        series.dataFields.categoryX = "country";
+        series.dataFields.valueY = "visits";
+        series.tooltipText = "{valueY.value}"
+        series.columns.template.strokeOpacity = 0;
+        series.columns.template.column.cornerRadiusTopRight = 10;
+        series.columns.template.column.cornerRadiusTopLeft = 10;
+        //series.interpolationDuration = 1500;
+        //series.interpolationEasing = am4core.ease.linear;
+        var labelBullet = series.bullets.push(new am4charts.LabelBullet());
+        labelBullet.label.verticalCenter = "bottom";
+        labelBullet.label.dy = -10;
+        labelBullet.label.text = "{values.valueY.workingValue.formatNumber('#.')}";
+
+        chartXY.zoomOutButton.disabled = true;
+
+        // as by default columns of the same series are of the same color, we add adapter which takes colors from chartXY.colors color set
+        series.columns.template.adapter.add("fill", function (fill, target) {
+        return chartXY.colors.getIndex(target.dataItem.index);
+        });
+
+        setInterval(function () {
+        am4core.array.each(chartXY.data, function (item) {
+        item.visits += Math.round(Math.random() * 200 - 100);
+        item.visits = Math.abs(item.visits);
+        })
+        chartXY.invalidateRawData();
+        }, 2000)
+
+        categoryAxis.sortBySeries = series;
+
+    }
+
+    createMapChart(){
+        /* Create map instance */
+        var chart = am4core.create("chartdiv", am4maps.MapChart);
+
+        /* Set map definition */
+        //chart.geodata = am4geodata_worldLow;
+        //chart.geodataSource.url = "http://daticos-geotec.opendata.arcgis.com/datasets/249bc8711c33493a90b292b55ed3abad_0.geojson";
+        //chart.geodata = am4geodata_costarica;
+        chart.geodata = am4geodata_costarica;
+
+
+        /* Set projection */
+        chart.projection = new am4maps.projections.Miller();
+
+        /* Create map polygon series */
+        var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+
+        /* Make map load polygon (like country names) data from GeoJSON */
+        polygonSeries.useGeodata = true;
+
+        /* Configure series */
+        var polygonTemplate = polygonSeries.mapPolygons.template;
+        polygonTemplate.applyOnClones = true;
+        polygonTemplate.togglable = true;
+        polygonTemplate.tooltipText = "{NOM_CANT_1}";
+        polygonTemplate.nonScalingStroke = true;
+        polygonTemplate.strokeOpacity = 0.5;
+        polygonTemplate.fill = chart.colors.getIndex(0);
+        var lastSelected;
+        polygonTemplate.events.on("hit", function(ev) {
+        if (lastSelected) {
+            // This line serves multiple purposes:
+            // 1. Clicking a country twice actually de-activates, the line below
+            //    de-activates it in advance, so the toggle then re-activates, making it
+            //    appear as if it was never de-activated to begin with.
+            // 2. Previously activated countries should be de-activated.
+            lastSelected.isActive = false;
+        }
+        ev.target.series.chart.zoomToMapObject(ev.target);
+        if (lastSelected !== ev.target) {
+            lastSelected = ev.target;
+        }
+        })
+
+
+        /* Create selected and hover states and set alternative fill color */
+        var ss = polygonTemplate.states.create("active");
+        ss.properties.fill = chart.colors.getIndex(2);
+
+        var hs = polygonTemplate.states.create("hover");
+        hs.properties.fill = chart.colors.getIndex(4);
+
+        // Small map
+        chart.smallMap = new am4maps.SmallMap();
+        // Re-position to top right (it defaults to bottom left)
+        chart.smallMap.align = "right";
+        chart.smallMap.valign = "top";
+        chart.smallMap.series.push(polygonSeries);
+
+        // Zoom control
+        chart.zoomControl = new am4maps.ZoomControl();
+
+        var homeButton = new am4core.Button();
+        homeButton.events.on("hit", function(){
+        chart.goHome();
+        });
+
+        homeButton.icon = new am4core.Sprite();
+        homeButton.padding(7, 5, 7, 5);
+        homeButton.width = 30;
+        homeButton.icon.path = "M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8";
+        homeButton.marginBottom = 10;
+        homeButton.parent = chart.zoomControl;
+        homeButton.insertBefore(chart.zoomControl.plusButton);  
+        
+        //Agregacion de puntos
+        // Add image series
+        var imageSeries = chart.series.push(new am4maps.MapImageSeries());
+        imageSeries.mapImages.template.propertyFields.longitude = "longitude";
+        imageSeries.mapImages.template.propertyFields.latitude = "latitude";
+        imageSeries.mapImages.template.tooltipText = "{title}";
+        imageSeries.mapImages.template.propertyFields.url = "url";
+
+        var circle = imageSeries.mapImages.template.createChild(am4core.Circle);
+        circle.radius = 3;
+        circle.propertyFields.fill = "color";
+
+        var circle2 = imageSeries.mapImages.template.createChild(am4core.Circle);
+        circle2.radius = 3;
+        circle2.propertyFields.fill = "color";
+
+
+        circle2.events.on("inited", function(event){
+        animateBullet(event.target, 1);
+        })
+
+
+        function animateBullet(circle, con) {
+            if(con < 3){
+                var animation = circle.animate([
+                    { property: "scale", from: 1, to: 5 }, 
+                    { property: "opacity", from: 1, to: 0 }], 
+                    1000,
+                    am4core.ease.circleOut);
+                animation.events.on("animationended", function(event){
+                animateBullet(event.target.object, con+1);
+                })
+            }
+        }
+
+        var colorSet = new am4core.ColorSet();
+
+        imageSeries.data = [ {
+        "title": "Brussels",
+        "latitude": 10.330922326542,
+        "longitude": -84.8366774763672,
+        "color":"red"
+        }, {
+        "title": "Copenhagen",
+        "latitude": -84.8366774763672,
+        "longitude": 10.330922326542,
+        "color":"red"
+        }];
+
+}
+    
+    componentDidMount() {
+        this.createRadialTimeLine();
+        this.createXYChart();
+        this.createMapChart();
+
     }
 
     componentWillUnmount() {
+        if (this.chart_radial_timeline) {
+            this.chart_radial_timeline.dispose();
+        }
+
+        if (this.chartXY) {
+            this.chartXY.dispose();
+        }
+
         if (this.chart) {
             this.chart.dispose();
         }
@@ -241,9 +477,21 @@ class RadarTimeline extends React.Component{
 
     render(){
         return(
-            <section>
-              <div id="radial_timeline" style={{ width: "100%", height: "700px" }}></div>
-            </section>
+            <Container fluid>
+                <Row> 
+                    <Col>
+                        <div id="radial_timeline" style={{ height: "45vh" }}></div>
+                    </Col>
+                </Row>
+                <Row> 
+                    <Col>
+                    <div id="chartdiv" style={{ height: "45vh" }}></div>
+                    </Col>
+                    <Col>
+                    <div id="chartXY" style={{ height: "45vh" }}></div>
+                    </Col>
+                </Row>
+            </Container>
         );
     }
 }

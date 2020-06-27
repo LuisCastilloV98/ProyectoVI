@@ -21,7 +21,7 @@ function App() {
       </TabList>
 
       <TabPanel>
-        <Container>
+        <Container fluid>
           <RadialTimeline />
         </Container>
       </TabPanel>
