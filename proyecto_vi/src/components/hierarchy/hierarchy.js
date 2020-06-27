@@ -6,9 +6,6 @@ class Hierarchy extends React.Component{
     componentDidMount() {
         let chart = am4core.create("hierarchy", am4charts.SankeyDiagram);
         chart.data = [
-            //{"from": "Violencia", "to": "Violencia Verbal/Escrita", "value": 10},
-            //{"from": "Violencia", "to": "Violencia Fisica", "value": 10},
-            //{"from": "Violencia", "to": "Robo", "value": 10},
             {"from": "Violencia", "to": "SM", "value": 70},
             {"from": "Violencia", "to": "IM", "value": 30},
             {"from": "IM", "to": "Violen. Verbal", "value": 7},
@@ -19,23 +16,17 @@ class Hierarchy extends React.Component{
             {"from": "SM", "to": "Violen. Escrita", "value": 42},
         ]
 
-        //chart.data = [
-        //    { "from": "A", "to": "D", "value": 10 },
-        //    { "from": "B", "to": "D", "value": 8 },
-        //    { "from": "B", "to": "E", "value": 4 },
-        //    { "from": "C", "to": "E", "value": 3 },
-        //    { "from": "D", "to": "G", "value": 5 },
-        //    { "from": "D", "to": "I", "value": 2 },
-        //    { "from": "D", "to": "H", "value": 3 },
-        //    { "from": "E", "to": "H", "value": 6 },
-        //    { "from": "G", "to": "J", "value": 5 },
-        //    { "from": "I", "to": "J", "value": 1 },
-        //    { "from": "H", "to": "J", "value": 9 }
-        //];
-
         chart.dataFields.fromName = "from";
         chart.dataFields.toName = "to";
         chart.dataFields.value = "value";
+
+        chart.links.template.interactionsEnabled = true;
+        chart.links.template.events.on("hit", function(ev) {
+            let connection = ev.target.dataItem.properties;
+            let value = ev.target.value;
+            console.log('data context: ', ev.target.dataItem.dataContext);
+            console.log("clicked on ", connection, value);
+        }, this);
     }
 
     componentWillUnmount() {

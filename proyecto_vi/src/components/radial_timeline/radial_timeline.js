@@ -38,13 +38,6 @@ class RadarTimeline extends React.Component{
         zoomOutButton.marginBottom = 15;
         zoomOutButton.parent = chart.rightAxesContainer;
 
-        // scrollbar
-        chart.scrollbarX = new am4core.Scrollbar();
-        chart.scrollbarX.parent = chart.rightAxesContainer;
-        chart.scrollbarX.orientation = "vertical";
-        chart.scrollbarX.align = "center";
-        chart.scrollbarX.exportable = false;
-
         // vertical orientation for zoom out button and scrollbar to be positioned properly
         chart.rightAxesContainer.layout = "vertical";
         chart.rightAxesContainer.padding(120, 20, 120, 20);
@@ -101,6 +94,16 @@ class RadarTimeline extends React.Component{
 
         // this makes columns to be of a different color, depending on value
         series.heatRules.push({ target: series.columns.template, property: "fill", minValue: -1, maxValue: 2, min: am4core.color("#673AB7"), max: am4core.color("#F44336"), dataField: "valueY" });
+
+        // on click
+        series.columns.events.on("hit", function(ev) {
+            console.log('data context: ', ev.target.dataItem);
+        }, this);
+
+        series.columns.events.on("hit", function(ev) {
+            alert('test');
+            console.log(ev.target);
+        }, this);
 
         // cursor
         let cursor = new am4charts.RadarCursor();
@@ -190,23 +193,23 @@ class RadarTimeline extends React.Component{
             axisFill.togglable = true;
 
             axisFill.showSystemTooltip = true;
-            axisFill.readerTitle = "click to zoom";
-            axisFill.cursorOverStyle = am4core.MouseCursorStyle.pointer;
+            //axisFill.readerTitle = "click to zoom";
+            //axisFill.cursorOverStyle = am4core.MouseCursorStyle.pointer;
 
-            axisFill.events.on("hit", function (event) {
-                let dataItem = event.target.dataItem;
-                if (!event.target.isActive) {
-                    categoryAxis.zoom({ start: 0, end: 1 });
-                }
-                else {
-                    categoryAxis.zoomToCategories(dataItem.category, dataItem.endCategory);
-                }
-            })
+            //axisFill.events.on("hit", function (event) {
+            //    let dataItem = event.target.dataItem;
+            //    if (!event.target.isActive) {
+            //        categoryAxis.zoom({ start: 0, end: 1 });
+            //    }
+            //    else {
+            //        categoryAxis.zoomToCategories(dataItem.category, dataItem.endCategory);
+            //    }
+            //})
 
             // hover state
-            let hoverState = axisFill.states.create("hover");
-            hoverState.properties.innerRadius = -10;
-            hoverState.properties.radius = -25;
+            //let hoverState = axisFill.states.create("hover");
+            //hoverState.properties.innerRadius = -10;
+            //hoverState.properties.radius = -25;
 
             let axisLabel = axisRange.label;
             axisLabel.location = 0.5;
