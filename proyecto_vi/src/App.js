@@ -4,10 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import {Container, Button} from 'react-bootstrap';
+import {Container} from 'react-bootstrap';
 
 // Import de componentes
-import RadialTimeline from './components/radial_timeline/radial_timeline';
+//import RadialTimeline from './components/radial_timeline/radial_timeline';
 import Hierarchy from './components/hierarchy/hierarchy';
 import SmallMultiples from './components/small_multiples/small_multiples';
 
@@ -22,7 +22,7 @@ function App() {
 
       <TabPanel>
         <Container>
-          <RadialTimeline />
+          <SmallMultiples />
         </Container>
       </TabPanel>
       <TabPanel>

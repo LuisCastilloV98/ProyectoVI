@@ -1,108 +1,109 @@
 import React from 'react';
-import Data from './ejemplo_100_2'
-import {ScatterChart, CartesianGrid, XAxis, YAxis, Tooltip, Scatter} from 'recharts'
+import Data from './ejemplo_100_2';
+import Chart from './chart';
+import { Form, Card, Container, Row, Col } from 'react-bootstrap';
 
-const cardStyle =  {
-  height: "350px",
-  width: "350px",
-  boxShadow: "-2px 0px 10px -2px",
-  padding: "10px"
-}
-
-const Chart = ({xCategory, xAxis, yCategory, yAxis}) => {
-  let zipedData = xAxis.map((x,i) => ({
-    'x': x,
-    'y': yAxis[i]
-  }));
-  console.log(xCategory, yCategory);
-
+const SMCard = ({selectedA, selectedB, columnas, datos, changeCol, dataClick}) => {
+  let xCategory = columnas[selectedA];
+  let xAxis = datos[xCategory];
+  let yCategory = columnas[selectedB];
+  let yAxis = datos[yCategory];
   return (
-    <ScatterChart width={300} height={300}
-                  margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <YAxis dataKey='y' name='y' tick={{fontSize: 10}} type='number'/>
-      <XAxis dataKey='x' name='x' tick={{fontSize: 10}} type='number'/>
-      <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-      <Scatter name={`${xCategory}, ${yCategory}`} data={zipedData} fill="#8884d8" />
-    </ScatterChart>
+    <Card>
+      <Card.Title>
+        <Form.Control as="select" onChange={(e) => changeCol(e)}>
+          {
+            columnas.map((x, i) => (
+              <option key={i} value={i} selected={i === selectedB}>{x}</option>
+            ))
+          }
+        </Form.Control>
+      </Card.Title>
+
+      <Card.Body>
+        <Chart
+          xAxis={xAxis}
+          yAxis={yAxis}
+          xCategory={xCategory}
+          yCategory={yCategory}
+          dataClick={dataClick}
+        />
+      </Card.Body>
+    </Card>
   )
+
 }
 
-class SMCard extends React.Component{
+class SMRow extends React.Component {
   constructor(props) {
-    let xCategory = props.columnas[props.selectedA];
-    let xAxis = props.datos[xCategory];
-    let yCategory = props.columnas[props.selectedB];
-    let yAxis = props.datos[yCategory];
-    super(props)
+    super(props);
+
     this.state = {
-      xAxis: xAxis,
-      xCategory: xCategory,
-      yAxis: yAxis,
-      yCategory: yCategory,
+      selectedRow: this.props.selectedRow,
+      selectedColumns: [0, 1, 2],
     }
   }
 
-  changeX(event) {
-    let category = this.props.columnas[event.target.value];
-    let axis = this.props.datos[category];
-    this.setState({
-      xCategory: category,
-      xAxis: axis,
-    })
+  changeRow(event) {
+    this.setState({selectedRow: event.target.value});
   }
 
-  changeY(event) {
-    let category = this.props.columnas[event.target.value];
-    let axis = this.props.datos[category];
-    this.setState({
-      yCategory: category,
-      yAxis: axis,
-    })
+  changeCol(event, index) {
+    let cols = this.state.selectedColumns;
+    cols[index] = event.target.value;
+    this.setState({selectedColumns: cols});
+  }
+
+  dataClick(event) {
+   
   }
 
   render() {
     return (
-      <div style={cardStyle}>
-        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
-          <select onChange={(e) => this.changeX(e)} syle={{margin: '0'}}>
+      <Card>
+        <Card.Header>
+          <Form.Control as="select" onChange={(e) => this.changeRow(e)}>
             {
               this.props.columnas.map((x, i) => (
-                <option key={i} value={i} selected={i === this.props.selectedA}>{x}</option>
+                <option key={i} value={i} selected={i === this.state.selectedRow}>{x}</option>
               ))
             }
-          </select>
-          <div> x </div>
-          <select onChange={(e) => this.changeY(e)}>
-            {
-              this.props.columnas.map((x, i) => (
-                <option key={i} value={i} selected={i === this.props.selectedB}>{x}</option>
-              ))
-            }
-          </select>
-        </div>
-        <div>
-          <Chart
-            xAxis={this.state.xAxis}
-            yAxis={this.state.yAxis}
-            xCategory={this.state.xCategory}
-            yCategory={this.state.yCategory}
-          />
-        </div>
-      </div>
+          </Form.Control>
+        </Card.Header>
+        <Card.Body>
+          <Row>
+            <Col>
+              <SMCard
+                columnas={this.props.columnas}
+                datos={this.props.dataObjects}
+                selectedA={this.state.selectedRow}
+                selectedB={this.state.selectedColumns[0]}
+                changeCol={(e) => this.changeCol(e, 0)}
+              />
+            </Col>
+            <Col>
+              <SMCard
+                columnas={this.props.columnas}
+                datos={this.props.dataObjects}
+                selectedA={this.state.selectedRow}
+                selectedB={this.state.selectedColumns[1]}
+                changeCol={(e) => this.changeCol(e, 1)}
+              />
+            </Col>
+            <Col>
+              <SMCard
+                columnas={this.props.columnas}
+                datos={this.props.dataObjects}
+                selectedA={this.state.selectedRow}
+                selectedB={this.state.selectedColumns[2]}
+                changeCol={(e) => this.changeCol(e, 2)}
+              />
+            </Col>
+          </Row>
+        </Card.Body>
+      </Card>
     )
   }
-}
-
-const processData = (data) => {
-  const dataObjects = {};
-  for (let i = 0; i < data.columnas.length; i++) {
-    let columna = data.columnas[i];
-    let datos = data.datos.map(x => x[i]);
-    dataObjects[columna] = datos;
-  }
-  console.log(dataObjects);
-  return dataObjects;
 }
 
 class SmallMultiples extends React.Component{
@@ -114,23 +115,23 @@ class SmallMultiples extends React.Component{
     let columnas = Data.columnas;
 
     return (
-      <section style={{padding: 0, margin: 0}}>
-        <div style={{display: 'flex', flexDirection: 'column'}}>
-          <div style={{display: 'flex', flexDirection: 'row'}}>
-            <SMCard columnas={columnas} datos={dataObjects} selectedA={0} selectedB={1}/>
-            <SMCard columnas={columnas} datos={dataObjects} selectedA={0} selectedB={2}/>
-            <SMCard columnas={columnas} datos={dataObjects} selectedA={0} selectedB={3}/>
-          </div>
-          <div style={{display: 'flex', flexDirection: 'row'}}>
-            <SMCard columnas={columnas} datos={dataObjects} selectedA={1} selectedB={1}/>
-            <SMCard columnas={columnas} datos={dataObjects} selectedA={1} selectedB={2}/>
-            <SMCard columnas={columnas} datos={dataObjects} selectedA={1} selectedB={3}/>
-          </div>
-        </div>
-      </section>
+      <Container>
+        <SMRow columnas={columnas} dataObjects={dataObjects} selectedRow={0}/>
+        <SMRow columnas={columnas} dataObjects={dataObjects} selectedRow={1}/>
+      </Container>
     )
   }
 
+}
+
+const processData = (data) => {
+  const dataObjects = {};
+  for (let i = 0; i < data.columnas.length; i++) {
+    let columna = data.columnas[i];
+    let datos = data.datos.map(x => x[i]);
+    dataObjects[columna] = datos;
+  }
+  return dataObjects;
 }
 
 export default SmallMultiples;
