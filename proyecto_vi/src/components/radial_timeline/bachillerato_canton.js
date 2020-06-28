@@ -1,5 +1,6 @@
 export default {"counters": [ 
  {
+   "Nombre": "San José",
    "Provincia": 1,
    "Canton": 1,
    "Promedio_2000": "0.443191676",
@@ -20,6 +21,7 @@ export default {"counters": [
    "Promedio_2015": "0.727385094"
  },
  {
+   "Nombre": "Escazú",
    "Provincia": 1,
    "Canton": 2,
    "Promedio_2000": "0.270823355",
@@ -40,6 +42,7 @@ export default {"counters": [
    "Promedio_2015": "0.807497213"
  },
  {
+  "Nombre": "Desamparados",
    "Provincia": 1,
    "Canton": 3,
    "Promedio_2000": "0.223726941",
@@ -60,6 +63,7 @@ export default {"counters": [
    "Promedio_2015": "0.544197656"
  },
  {
+  "Nombre": "Puriscal",
    "Provincia": 1,
    "Canton": 4,
    "Promedio_2000": "0.167323802",
@@ -80,6 +84,7 @@ export default {"counters": [
    "Promedio_2015": "0.647622196"
  },
  {
+  "Nombre": "Tarrazu",
    "Provincia": 1,
    "Canton": 5,
    "Promedio_2000": "0.418181818",
@@ -100,6 +105,7 @@ export default {"counters": [
    "Promedio_2015": "0.829344262"
  },
  {
+  "Nombre": "Aserrí",
    "Provincia": 1,
    "Canton": 6,
    "Promedio_2000": "0.083595241",
@@ -120,6 +126,7 @@ export default {"counters": [
    "Promedio_2015": "0.628055326"
  },
  {
+  "Nombre": "Mora",
    "Provincia": 1,
    "Canton": 7,
    "Promedio_2000": "0.329591837",
@@ -140,6 +147,7 @@ export default {"counters": [
    "Promedio_2015": "0.737729069"
  },
  {
+  "Nombre": "Goicoechea",
    "Provincia": 1,
    "Canton": 8,
    "Promedio_2000": "0.213120854",
@@ -160,6 +168,7 @@ export default {"counters": [
    "Promedio_2015": "0.542620299"
  },
  {
+  "Nombre": "Santa Ana",
    "Provincia": 1,
    "Canton": 9,
    "Promedio_2000": "0.146896552",
@@ -180,6 +189,7 @@ export default {"counters": [
    "Promedio_2015": "0.588668783"
  },
  {
+  "Nombre": "Alajuelita",
    "Provincia": 1,
    "Canton": 10,
    "Promedio_2000": "0.245838283",
@@ -200,6 +210,7 @@ export default {"counters": [
    "Promedio_2015": "0.694897724"
  },
  {
+  "Nombre": "Vázquez de Coronado",
    "Provincia": 1,
    "Canton": 11,
    "Promedio_2000": "0.230681818",
@@ -220,6 +231,7 @@ export default {"counters": [
    "Promedio_2015": "0.713451098"
  },
  {
+  "Nombre": "Acosta",
    "Provincia": 1,
    "Canton": 12,
    "Promedio_2000": "0.099025974",
@@ -240,6 +252,7 @@ export default {"counters": [
    "Promedio_2015": "0.425786233"
  },
  {
+  "Nombre": "Tibás",
    "Provincia": 1,
    "Canton": 13,
    "Promedio_2000": "0.132066093",
@@ -260,6 +273,7 @@ export default {"counters": [
    "Promedio_2015": "0.703963656"
  },
  {
+  "Nombre": "Moravia",
    "Provincia": 1,
    "Canton": 14,
    "Promedio_2000": "0.489415265",
@@ -280,6 +294,7 @@ export default {"counters": [
    "Promedio_2015": "0.779102134"
  },
  {
+  "Nombre": "Montes de Oca",
    "Provincia": 1,
    "Canton": 15,
    "Promedio_2000": "0.672667786",
@@ -300,6 +315,7 @@ export default {"counters": [
    "Promedio_2015": "0.717969182"
  },
  {
+  "Nombre": "Turrubares",
    "Provincia": 1,
    "Canton": 16,
    "Promedio_2000": "0.053571429",
@@ -320,6 +336,7 @@ export default {"counters": [
    "Promedio_2015": "0.680555556"
  },
  {
+  "Nombre": "Dota",
    "Provincia": 1,
    "Canton": 17,
    "Promedio_2000": "0.219298246",
@@ -340,6 +357,7 @@ export default {"counters": [
    "Promedio_2015": "0.549019608"
  },
  {
+  "Nombre": "Curridabat",
    "Provincia": 1,
    "Canton": 18,
    "Promedio_2000": "0.485678899",
@@ -360,6 +378,7 @@ export default {"counters": [
    "Promedio_2015": "0.609749248"
  },
  {
+  "Nombre": "Pérez Zeledón",
    "Provincia": 1,
    "Canton": 19,
    "Promedio_2000": "0.21915294",
@@ -380,6 +399,7 @@ export default {"counters": [
    "Promedio_2015": "0.73896437"
  },
  {
+  "Nombre": "León Cortés",
    "Provincia": 1,
    "Canton": 20,
    "Promedio_2000": "0.085585586",
@@ -400,6 +420,7 @@ export default {"counters": [
    "Promedio_2015": "0.55427155"
  },
  {
+  "Nombre": "Alajuela",
    "Provincia": 2,
    "Canton": 1,
    "Promedio_2000": "0.401437419",
@@ -420,6 +441,7 @@ export default {"counters": [
    "Promedio_2015": "0.743094932"
  },
  {
+  "Nombre": "San Ramón",
    "Provincia": 2,
    "Canton": 2,
    "Promedio_2000": "0.313000722",
@@ -440,6 +462,7 @@ export default {"counters": [
    "Promedio_2015": "0.748560638"
  },
  {
+  "Nombre": "Grecia",
    "Provincia": 2,
    "Canton": 3,
    "Promedio_2000": "0.214934791",
@@ -460,6 +483,7 @@ export default {"counters": [
    "Promedio_2015": "0.747396063"
  },
  {
+  "Nombre": "San Mateo",
    "Provincia": 2,
    "Canton": 4,
    "Promedio_2000": "0.079545455",
@@ -480,6 +504,7 @@ export default {"counters": [
    "Promedio_2015": "0.363799283"
  },
  {
+  "Nombre": "Atenas",
    "Provincia": 2,
    "Canton": 5,
    "Promedio_2000": "0.110734463",
@@ -500,6 +525,7 @@ export default {"counters": [
    "Promedio_2015": "0.802272783"
  },
  {
+  "Nombre": "Naranjo",
    "Provincia": 2,
    "Canton": 6,
    "Promedio_2000": "0.164361702",
@@ -520,6 +546,7 @@ export default {"counters": [
    "Promedio_2015": "0.801893186"
  },
  {
+  "Nombre": "Palmares",
    "Provincia": 2,
    "Canton": 7,
    "Promedio_2000": "0.428445291",
@@ -540,6 +567,7 @@ export default {"counters": [
    "Promedio_2015": "0.728828729"
  },
  {
+  "Nombre": "Poas",
    "Provincia": 2,
    "Canton": 8,
    "Promedio_2000": "0.250712251",
@@ -560,6 +588,7 @@ export default {"counters": [
    "Promedio_2015": "0.770691434"
  },
  {
+  "Nombre": "Orotina",
    "Provincia": 2,
    "Canton": 9,
    "Promedio_2000": "0.336050157",
@@ -580,6 +609,7 @@ export default {"counters": [
    "Promedio_2015": "0.597871674"
  },
  {
+  "Nombre": "San Carlos",
    "Provincia": 2,
    "Canton": 10,
    "Promedio_2000": "0.18484581",
@@ -600,6 +630,7 @@ export default {"counters": [
    "Promedio_2015": "0.63759704"
  },
  {
+  "Nombre": "Alfaro Ruiz",
    "Provincia": 2,
    "Canton": 11,
    "Promedio_2000": "0.148351648",
@@ -620,6 +651,7 @@ export default {"counters": [
    "Promedio_2015": "0.800089059"
  },
  {
+  "Nombre": "Valverde Vega",
    "Provincia": 2,
    "Canton": 12,
    "Promedio_2000": "0.281481481",
@@ -640,6 +672,7 @@ export default {"counters": [
    "Promedio_2015": "0.791822992"
  },
  {
+  "Nombre": "Upala",
    "Provincia": 2,
    "Canton": 13,
    "Promedio_2000": "0.127332119",
@@ -660,6 +693,7 @@ export default {"counters": [
    "Promedio_2015": "0.460728701"
  },
  {
+  "Nombre": "Los Chiles",
    "Provincia": 2,
    "Canton": 14,
    "Promedio_2000": "0.0325",
@@ -680,6 +714,7 @@ export default {"counters": [
    "Promedio_2015": "0.442315593"
  },
  {
+  "Nombre": "Guatuso",
    "Provincia": 2,
    "Canton": 15,
    "Promedio_2000": "0.265217391",
@@ -700,6 +735,7 @@ export default {"counters": [
    "Promedio_2015": "0.531127451"
  },
  {
+  "Nombre": "Cartago",
    "Provincia": 3,
    "Canton": 1,
    "Promedio_2000": "0.409080293",
@@ -720,6 +756,7 @@ export default {"counters": [
    "Promedio_2015": "0.731911151"
  },
  {
+  "Nombre": "Paraíso",
    "Provincia": 3,
    "Canton": 2,
    "Promedio_2000": "0.077895489",
@@ -740,6 +777,7 @@ export default {"counters": [
    "Promedio_2015": "0.736418892"
  },
  {
+  "Nombre": "La Uníon",
    "Provincia": 3,
    "Canton": 3,
    "Promedio_2000": "0.268989989",
@@ -760,6 +798,7 @@ export default {"counters": [
    "Promedio_2015": "0.640808599"
  },
  {
+  "Nombre": "Jiménez",
    "Provincia": 3,
    "Canton": 4,
    "Promedio_2000": "0.47979798",
@@ -780,6 +819,7 @@ export default {"counters": [
    "Promedio_2015": "0.779620416"
  },
  {
+  "Nombre": "Turrialba",
    "Provincia": 3,
    "Canton": 5,
    "Promedio_2000": "0.221518987",
@@ -800,6 +840,7 @@ export default {"counters": [
    "Promedio_2015": "0.692931827"
  },
  {
+  "Nombre": "Alvarado",
    "Provincia": 3,
    "Canton": 6,
    "Promedio_2000": "0.145833333",
@@ -820,6 +861,7 @@ export default {"counters": [
    "Promedio_2015": "0.605461394"
  },
  {
+  "Nombre": "Oreamuno",
    "Provincia": 3,
    "Canton": 7,
    "Promedio_2000": "0.170454545",
@@ -840,6 +882,7 @@ export default {"counters": [
    "Promedio_2015": "0.721645668"
  },
  {
+  "Nombre": "El Guarco",
    "Provincia": 3,
    "Canton": 8,
    "Promedio_2000": "0.08372093",
@@ -860,6 +903,7 @@ export default {"counters": [
    "Promedio_2015": "0.515018315"
  },
  {
+  "Nombre": "Heredia",
    "Provincia": 4,
    "Canton": 1,
    "Promedio_2000": "0.515954188",
@@ -880,6 +924,7 @@ export default {"counters": [
    "Promedio_2015": "0.815902868"
  },
  {
+  "Nombre": "Barva",
    "Provincia": 4,
    "Canton": 2,
    "Promedio_2000": "0.30511427",
@@ -900,6 +945,7 @@ export default {"counters": [
    "Promedio_2015": "0.308265107"
  },
  {
+  "Nombre": "Santo Domingo",
    "Provincia": 4,
    "Canton": 3,
    "Promedio_2000": "0.315456259",
@@ -920,6 +966,7 @@ export default {"counters": [
    "Promedio_2015": "0.639373706"
  },
  {
+  "Nombre": "Santa Barbara",
    "Provincia": 4,
    "Canton": 4,
    "Promedio_2000": "0.495261984",
@@ -940,6 +987,7 @@ export default {"counters": [
    "Promedio_2015": "0.786045062"
  },
  {
+  "Nombre": "San Rafael",
    "Provincia": 4,
    "Canton": 5,
    "Promedio_2000": "0.1375",
@@ -960,6 +1008,7 @@ export default {"counters": [
    "Promedio_2015": "0.759092726"
  },
  {
+  "Nombre": "San Isidro",
    "Provincia": 4,
    "Canton": 6,
    "Promedio_2000": "0.341841982",
@@ -980,6 +1029,7 @@ export default {"counters": [
    "Promedio_2015": "0.529305776"
  },
  {
+  "Nombre": "Belen",
    "Provincia": 4,
    "Canton": 7,
    "Promedio_2000": "0.495208333",
@@ -1000,6 +1050,7 @@ export default {"counters": [
    "Promedio_2015": "0.676339286"
  },
  {
+  "Nombre": "Flores",
    "Provincia": 4,
    "Canton": 8,
    "Promedio_2000": "0.400364118",
@@ -1020,6 +1071,7 @@ export default {"counters": [
    "Promedio_2015": "0.874452773"
  },
  {
+  "Nombre": "San Pablo",
    "Provincia": 4,
    "Canton": 9,
    "Promedio_2000": "0.182291667",
@@ -1040,6 +1092,7 @@ export default {"counters": [
    "Promedio_2015": "0.379298942"
  },
  {
+  "Nombre": "Sarapiquí",
    "Provincia": 4,
    "Canton": 10,
    "Promedio_2000": "0.093406593",
@@ -1060,6 +1113,7 @@ export default {"counters": [
    "Promedio_2015": "0.557503355"
  },
  {
+  "Nombre": "Liberia",
    "Provincia": 5,
    "Canton": 1,
    "Promedio_2000": "0.358424157",
@@ -1080,6 +1134,7 @@ export default {"counters": [
    "Promedio_2015": "0.677381367"
  },
  {
+  "Nombre": "Nicoya",
    "Provincia": 5,
    "Canton": 2,
    "Promedio_2000": "0.230532284",
@@ -1100,6 +1155,7 @@ export default {"counters": [
    "Promedio_2015": "0.378921531"
  },
  {
+  "Nombre": "Santa Cruz",
    "Provincia": 5,
    "Canton": 3,
    "Promedio_2000": "0.367629479",
@@ -1120,6 +1176,7 @@ export default {"counters": [
    "Promedio_2015": "0.407185631"
  },
  {
+  "Nombre": "Bagaces",
    "Provincia": 5,
    "Canton": 4,
    "Promedio_2000": "0.238913525",
@@ -1140,6 +1197,7 @@ export default {"counters": [
    "Promedio_2015": "0.677915303"
  },
  {
+  "Nombre": "Carrillo",
    "Provincia": 5,
    "Canton": 5,
    "Promedio_2000": "0.064182195",
@@ -1160,6 +1218,7 @@ export default {"counters": [
    "Promedio_2015": "0.461205789"
  },
  {
+  "Nombre": "Cañas",
    "Provincia": 5,
    "Canton": 6,
    "Promedio_2000": "0.192836585",
@@ -1180,6 +1239,7 @@ export default {"counters": [
    "Promedio_2015": "0.73505698"
  },
  {
+  "Nombre": "Abangares",
    "Provincia": 5,
    "Canton": 7,
    "Promedio_2000": "0.157894737",
@@ -1200,6 +1260,7 @@ export default {"counters": [
    "Promedio_2015": "0.659526297"
  },
  {
+  "Nombre": "Tilaran",
    "Provincia": 5,
    "Canton": 8,
    "Promedio_2000": "0.373020289",
@@ -1220,6 +1281,7 @@ export default {"counters": [
    "Promedio_2015": "0.581513978"
  },
  {
+  "Nombre": "Nandayure",
    "Provincia": 5,
    "Canton": 9,
    "Promedio_2000": "0.238336714",
@@ -1240,6 +1302,7 @@ export default {"counters": [
    "Promedio_2015": "0.525164813"
  },
  {
+  "Nombre": "La Cruz",
    "Provincia": 5,
    "Canton": 10,
    "Promedio_2000": "0.078697422",
@@ -1260,6 +1323,7 @@ export default {"counters": [
    "Promedio_2015": "0.379449447"
  },
  {
+  "Nombre": "Hojancha",
    "Provincia": 5,
    "Canton": 11,
    "Promedio_2000": "0.19047619",
@@ -1280,6 +1344,7 @@ export default {"counters": [
    "Promedio_2015": "0.647619048"
  },
  {
+  "Nombre": "Puntarenas",
    "Provincia": 6,
    "Canton": 1,
    "Promedio_2000": "0.251228633",
@@ -1300,6 +1365,7 @@ export default {"counters": [
    "Promedio_2015": "0.586639164"
  },
  {
+  "Nombre": "Esparza",
    "Provincia": 6,
    "Canton": 2,
    "Promedio_2000": "0.338230057",
@@ -1320,6 +1386,7 @@ export default {"counters": [
    "Promedio_2015": "0.764527161"
  },
  {
+  "Nombre": "Buenos Aires",
    "Provincia": 6,
    "Canton": 3,
    "Promedio_2000": "0.164995665",
@@ -1340,6 +1407,7 @@ export default {"counters": [
    "Promedio_2015": "0.687870079"
  },
  {
+  "Nombre": "Montes de Oro",
    "Provincia": 6,
    "Canton": 4,
    "Promedio_2000": "0.316455696",
@@ -1360,6 +1428,7 @@ export default {"counters": [
    "Promedio_2015": "0.972727273"
  },
  {
+  "Nombre": "Osa",
    "Provincia": 6,
    "Canton": 5,
    "Promedio_2000": "0.392636038",
@@ -1380,6 +1449,7 @@ export default {"counters": [
    "Promedio_2015": "0.591362938"
  },
  {
+  "Nombre": "Aguirre",
    "Provincia": 6,
    "Canton": 6,
    "Promedio_2000": "0.112727273",
@@ -1400,6 +1470,7 @@ export default {"counters": [
    "Promedio_2015": "0.666018981"
  },
  {
+  "Nombre": "Golfito",
    "Provincia": 6,
    "Canton": 7,
    "Promedio_2000": "0.194216853",
@@ -1420,6 +1491,7 @@ export default {"counters": [
    "Promedio_2015": "0.470790873"
  },
  {
+  "Nombre": "Coto Brus",
    "Provincia": 6,
    "Canton": 8,
    "Promedio_2000": "0.21799862",
@@ -1440,6 +1512,7 @@ export default {"counters": [
    "Promedio_2015": "0.69802874"
  },
  {
+  "Nombre": "Parrita",
    "Provincia": 6,
    "Canton": 9,
    "Promedio_2000": "0",
@@ -1460,6 +1533,7 @@ export default {"counters": [
    "Promedio_2015": "0.339946687"
  },
  {
+  "Nombre": "Corredores",
    "Provincia": 6,
    "Canton": 10,
    "Promedio_2000": "0.103434817",
@@ -1480,6 +1554,7 @@ export default {"counters": [
    "Promedio_2015": "0.538087256"
  },
  {
+  "Nombre": "Garabito",
    "Provincia": 6,
    "Canton": 11,
    "Promedio_2000": "0.111111111",
@@ -1500,6 +1575,7 @@ export default {"counters": [
    "Promedio_2015": "0.808811272"
  },
  {
+  "Nombre": "Limón",
    "Provincia": 7,
    "Canton": 1,
    "Promedio_2000": "0.389654979",
@@ -1520,6 +1596,7 @@ export default {"counters": [
    "Promedio_2015": "0.605738631"
  },
  {
+  "Nombre": "Pococí",
    "Provincia": 7,
    "Canton": 2,
    "Promedio_2000": "0.227822424",
@@ -1540,6 +1617,7 @@ export default {"counters": [
    "Promedio_2015": "0.695468388"
  },
  {
+  "Nombre": "Siquirres",
    "Provincia": 7,
    "Canton": 3,
    "Promedio_2000": "0.189046661",
@@ -1560,6 +1638,7 @@ export default {"counters": [
    "Promedio_2015": "0.329312745"
  },
  {
+  "Nombre": "Talamanca",
    "Provincia": 7,
    "Canton": 4,
    "Promedio_2000": "0.043425325",
@@ -1580,6 +1659,7 @@ export default {"counters": [
    "Promedio_2015": "0.602751318"
  },
  {
+  "Nombre": "Matina",
    "Provincia": 7,
    "Canton": 5,
    "Promedio_2000": "0.285898079",
@@ -1600,6 +1680,7 @@ export default {"counters": [
    "Promedio_2015": "0.410257629"
  },
  {
+  "Nombre": "Guácimo",
    "Provincia": 7,
    "Canton": 6,
    "Promedio_2000": "0.190545809",
