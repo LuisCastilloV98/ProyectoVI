@@ -1,13 +1,13 @@
 import React from 'react';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
-
-
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import data_colegios from './dataRadar';
 import { Container, Button, Form, Col, Row } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
-import options from './options';
+import  colegios from './dato_colegio';
+
+
 
 class Hierarchy extends React.Component {
 
@@ -15,10 +15,31 @@ class Hierarchy extends React.Component {
         industry: [],
     };
 
+
     constructor(props) {
         super(props);
         this.gloabachartRadarChart = null;
+        this.valoresComparar = ["Promedio_2000","Promedio_2001","Promedio_2002"]
 
+    }
+
+    getdataforPolar(){
+        var data_result = [];
+        for (var i = 0; i < this.valoresComparar.length; i++) {
+            var nuevo_elemento = {};
+            nuevo_elemento.category = this.valoresComparar[i];
+            for (var j = 0; j < colegios.length; j++) {
+                var colegio_actual = colegios[j];
+                var name_Columna = colegio_actual.nombre_ins;
+                var value_Columna = colegio_actual[this.valoresComparar[i]];
+                nuevo_elemento[name_Columna] = value_Columna;
+            }
+            data_result.push(nuevo_elemento);
+        
+        }
+        console.log(data_result);
+
+        return data_result;
     }
 
 
@@ -53,7 +74,9 @@ class Hierarchy extends React.Component {
         let chartRadarChart = am4core.create("chartdiv", am4charts.RadarChart);
         chartRadarChart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
-        chartRadarChart.data = data_colegios;
+        //data
+        this.getdataforPolar();
+        chartRadarChart.data =  this.getdataforPolar();
 
         chartRadarChart.padding(20, 20, 20, 20);
 
@@ -63,26 +86,12 @@ class Hierarchy extends React.Component {
         categoryAxis.renderer.tooltipLocation = 0.5;
         categoryAxis.renderer.cellStartLocation = 0.2;
         categoryAxis.renderer.cellEndLocation = 0.8;
+        
 
         let valueAxis = chartRadarChart.yAxes.push(new am4charts.ValueAxis());
         valueAxis.tooltip.disabled = true;
         valueAxis.renderer.labels.template.horizontalCenter = "left";
         valueAxis.min = 0;
-
-        let series1 = chartRadarChart.series.push(new am4charts.RadarColumnSeries());
-        series1.columns.template.tooltipText = "{name}: {valueY.value}";
-        series1.columns.template.width = am4core.percent(100);
-        series1.name = "Series 1";
-        series1.dataFields.categoryX = "category";
-        series1.dataFields.valueY = "value1";
-
-        let series2 = chartRadarChart.series.push(new am4charts.RadarColumnSeries());
-        series2.columns.template.width = am4core.percent(100);
-        series2.columns.template.tooltipText = "{name}: {valueY.value}";
-        series2.name = "Series 2";
-        series2.dataFields.categoryX = "category";
-        series2.dataFields.valueY = "value2";
-
 
         chartRadarChart.seriesContainer.zIndex = -1;
 
@@ -91,26 +100,64 @@ class Hierarchy extends React.Component {
         chartRadarChart.scrollbarY = new am4core.Scrollbar();
         chartRadarChart.scrollbarY.exportable = false;
 
-        chartRadarChart.cursor = new am4charts.RadarCursor();
-        chartRadarChart.cursor.xAxis = categoryAxis;
-        chartRadarChart.cursor.fullWidthXLine = true;
-        chartRadarChart.cursor.lineX.strokeOpacity = 0;
-        chartRadarChart.cursor.lineX.fillOpacity = 0.1;
-        chartRadarChart.cursor.lineX.fill = am4core.color("#000000");
+        let cursor = new am4charts.RadarCursor();
+        chartRadarChart.cursor = cursor;
+        cursor.behavior = "selectY";
+
+        cursor.xAxis = categoryAxis;
+        cursor.innerRadius = am4core.percent(40);
+        cursor.lineY.disabled = true;
+        
+        cursor.xAxis = categoryAxis;
+        cursor.fullWidthXLine = true;
+        cursor.lineX.strokeOpacity = 0;
+        cursor.lineX.fillOpacity = 0.1;
+        cursor.lineX.fill = am4core.color("#000000");
+
+        cursor.lineX.fillOpacity = 0.2;
+        cursor.lineX.fill = am4core.color("#000000");
+        cursor.lineX.strokeOpacity = 0;
+        cursor.fullWidthLineX = true;
+
+        cursor.xAxis = categoryAxis;
+        cursor.fullWidthXLine = true;
+        cursor.lineX.strokeOpacity = 0;
+        cursor.lineX.fillOpacity = 0.1;
+        cursor.lineX.fill = am4core.color("#000000");
+
+        // chartRadarChart.cursor = new am4charts.RadarCursor();
+        // chartRadarChart.cursor.top
+
+        // chartRadarChart.cursor.xAxis = categoryAxis;
+        // chartRadarChart.cursor.fullWidthXLine = true;
+        // chartRadarChart.cursor.lineX.strokeOpacity = 0;
+        // chartRadarChart.cursor.lineX.fillOpacity = 0.1;
+        // chartRadarChart.cursor.lineX.fill = am4core.color("#000000");
 
         this.gloabachartRadarChart = chartRadarChart;
 
     }
 
     handleTypeaheadChangeIndustry = selected => {
-        const industry = selected.map(option => option.name);
+        const industry = selected.map(option => option);
         this.setState({ industry });
       };
 
     validate = e => {
         e.preventDefault(); // Don't reload the page
-        console.log(this.state.industry);
-        alert(this.state.industry);
+        this.gloabachartRadarChart.series.clear();
+        for (var j = 0; j < this.state.industry.length; j++) {
+            var colegio_actual =  this.state.industry[j];
+            console.log(colegio_actual);
+
+            let series1 = this.gloabachartRadarChart.series.push(new am4charts.RadarColumnSeries());
+            series1.columns.template.tooltipText = "{name}: {valueY.value}";
+            series1.columns.template.width = am4core.percent(100);
+            series1.name = colegio_actual.nombre_ins;
+            series1.dataFields.categoryX = "category";
+            series1.dataFields.valueY = colegio_actual.nombre_ins;
+        }
+
         return true;
     };
 
@@ -140,10 +187,10 @@ class Hierarchy extends React.Component {
                                 <Form.Label>Colegios</Form.Label>
                                 <Typeahead
                                     id="basic-example"
-                                    labelKey="name"
+                                    labelKey="nombre_ins"
                                     multiple
                                     onChange={this.handleTypeaheadChangeIndustry}
-                                    options={options}
+                                    options={colegios}
                                     placeholder="Escoje alguna institución...">
                                 </Typeahead>
                             </Form.Group>

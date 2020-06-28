@@ -2,7 +2,8 @@ var list =  [
         {
             category: "One",
             value1: 8,
-            value2: 2
+            value2: 2,
+            value3: "no hago nada"
         },
         {
             category: "Two",
