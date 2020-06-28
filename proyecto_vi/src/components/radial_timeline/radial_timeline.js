@@ -5,13 +5,248 @@ import * as am4maps from "@amcharts/amcharts4/maps";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import {am4geodata_worldLow} from "@amcharts/amcharts4-geodata/worldLow";
 import map from "@amcharts/amcharts4-geodata/costaRicaHigh";
-import temperatures from "./bachillerato_provincia";
+import datos_provincia from "./bachillerato_provincia";
+import datos_canton from "./bachillerato_canton";
 import {Container, Button, Row, Col } from 'react-bootstrap';
 import am4geodata_costarica from '../../assets/data/costarica';
 
 am4core.useTheme(am4themes_animated);
 class RadarTimeline extends React.Component{
 
+    constructor(props) {
+        super(props);
+        this.gloabaXYchart = null;
+        this.actual_province = null;
+        this.actual_id_province = null;
+        this.data_XY = null;
+        this.actual_anno = null;
+
+        this.mapachart = null;
+        this.polygonSeriesmap = null;
+
+    }
+
+    setmapvalues(province, canton, anno){
+
+    }
+
+
+    setdataxy(anno, provincia){
+        var temp = [];
+        
+        for (var i = 0; i < datos_canton.counters.length; i++) {
+            var counter = datos_canton.counters[i];
+            var actual_anno = "";
+            if(anno==2000){
+                actual_anno=counter.Promedio_2000;
+
+            }else if(anno ==2001){
+                actual_anno=counter.Promedio_2001;
+
+            }
+            else if(anno ==2002){
+                actual_anno=counter.Promedio_2002;
+                
+            }
+            else if(anno ==2003){
+                actual_anno=counter.Promedio_2003;
+                
+            }
+            else if(anno ==2004){
+                actual_anno=counter.Promedio_2004;
+                
+            }
+            else if(anno ==2005){
+                actual_anno=counter.Promedio_2005;
+                
+            }
+            else if(anno ==2006){
+                actual_anno=counter.Promedio_2006;
+                
+            }
+            else if(anno ==2007){
+                actual_anno=counter.Promedio_2007;
+                
+            }
+            else if(anno ==2008){
+                actual_anno=counter.Promedio_2008;
+                
+            }
+            else if(anno ==2009){
+                actual_anno=counter.Promedio_2009;
+                
+            }
+            else if(anno ==2010){
+                actual_anno=counter.Promedio_2010;
+                
+            }
+            else if(anno ==2011){
+                actual_anno=counter.Promedio_2011;
+                
+            }else if(anno ==2012){
+                actual_anno=counter.Promedio_2012;
+                
+            }else if(anno ==2013){
+                actual_anno=counter.Promedio_2013;
+                
+            }else if(anno ==2014){
+                actual_anno=counter.Promedio_2014;
+                
+            }else{
+                actual_anno=counter.Promedio_2015;
+                
+            }
+
+
+            if(counter.Provincia==provincia){
+                temp.push({
+                    "country": counter.Canton.toString(),
+                    "canton_id": counter.Canton.toString(),
+                    "visits": parseFloat(actual_anno)
+                });
+            }
+        }
+
+        this.actual_id_province =  counter.Canton.toString();
+        this.actual_anno = anno;
+
+        this.data_XY = temp;
+        this.gloabaXYchart.data = this.data_XY;
+        this.gloabaXYchart.invalidateRawData();
+       
+
+    }
+
+    updatedataxy(anno){
+        
+        for (var i = 0; i < datos_canton.counters.length; i++) {
+            var counter = datos_canton.counters[i];
+            var actual_anno = "";
+            if(anno==2000){
+                actual_anno=counter.Promedio_2000;
+
+            }else if(anno ==2001){
+                actual_anno=counter.Promedio_2001;
+
+            }
+            else if(anno ==2002){
+                actual_anno=counter.Promedio_2002;
+                
+            }
+            else if(anno ==2003){
+                actual_anno=counter.Promedio_2003;
+                
+            }
+            else if(anno ==2004){
+                actual_anno=counter.Promedio_2004;
+                
+            }
+            else if(anno ==2005){
+                actual_anno=counter.Promedio_2005;
+                
+            }
+            else if(anno ==2006){
+                actual_anno=counter.Promedio_2006;
+                
+            }
+            else if(anno ==2007){
+                actual_anno=counter.Promedio_2007;
+                
+            }
+            else if(anno ==2008){
+                actual_anno=counter.Promedio_2008;
+                
+            }
+            else if(anno ==2009){
+                actual_anno=counter.Promedio_2009;
+                
+            }
+            else if(anno ==2010){
+                actual_anno=counter.Promedio_2010;
+                
+            }
+            else if(anno ==2011){
+                actual_anno=counter.Promedio_2011;
+                
+            }else if(anno ==2012){
+                actual_anno=counter.Promedio_2012;
+                
+            }else if(anno ==2013){
+                actual_anno=counter.Promedio_2013;
+                
+            }else if(anno ==2014){
+                actual_anno=counter.Promedio_2014;
+                
+            }else{
+                actual_anno=counter.Promedio_2015;
+                
+            }
+
+            am4core.array.each(this.data_XY, function (item) {
+                        if(parseInt(item.canton_id) == counter.Canton){
+                         item.visits =  parseFloat(actual_anno);
+                        }
+                    })
+
+        }
+
+        this.gloabaXYchart.invalidateRawData();
+    
+    }
+
+    updateDataXY(anno, provincia){
+        if (provincia=="San Jose") {
+            if(provincia==this.actual_province){
+                this.updatedataxy(anno);
+            }else{
+            this.setdataxy(anno, 1);
+            }
+            console.log(anno,1);
+          } else if (provincia=="Puntarenas") {
+            if(provincia==this.actual_province){
+                this.updatedataxy(anno);
+            }else{
+            this.setdataxy(anno, 6);
+        }
+            console.log(anno,6);
+          } else if (provincia=="Limón") {
+            if(provincia==this.actual_province){
+                this.updatedataxy(anno);
+            }else{
+            this.setdataxy(anno, 7);
+        }
+            console.log(anno,7);
+          }else if (provincia=="Cartago") {
+            if(provincia==this.actual_province){
+                this.updatedataxy(anno);
+            }else{
+            this.setdataxy(anno, 3);
+        }
+            console.log(anno,3);
+          }else if (provincia=="Alajuela") {
+            if(provincia==this.actual_province){
+                this.updatedataxy(anno);
+            }else{
+            this.setdataxy(anno, 2);
+        }
+            console.log(anno,2);
+          }else if (provincia=="Guanacaste") {
+            if(provincia==this.actual_province){
+                this.updatedataxy(anno);
+            }else{
+            this.setdataxy(anno, 5);
+        }
+            console.log(anno,5);
+          }else {
+            if(provincia==this.actual_province){
+                this.updatedataxy(anno);
+            }else{
+            this.setdataxy(anno, 4);
+            console.log(anno,4);
+            }
+          }
+        console.log(anno, provincia);
+    }
 
     createRadialTimeLine(){
         let startYear = 2000;
@@ -100,22 +335,21 @@ class RadarTimeline extends React.Component{
         series.tooltipText = "{categoryX}:{valueY.value}";
 
         // this makes columns to be of a different color, depending on value
-        series.heatRules.push({ target: series.columns.template, property: "fill", minValue: -1, maxValue: 2, min: am4core.color("#673AB7"), max: am4core.color("#F44336"), dataField: "valueY" });
+        series.heatRules.push({ 
+            target: series.columns.template, 
+            property: "fill",
+             minValue: -1, 
+             maxValue: 2, 
+             min: am4core.color("#673AB7"),
+             max: am4core.color("#F44336"), 
+             dataField: "valueY" });
 
-        // on click
-        series.columns.events.on("hit", function(ev) {
-            console.log('data context: ', ev.target.dataItem);
-        }, this);
 
-        series.columns.events.on("hit", function(ev) {
-            alert('test');
-            console.log(ev.target);
-        }, this);
 
         // cursor
         let cursor = new am4charts.RadarCursor();
         chart_radial_timeline.cursor = cursor;
-        cursor.behavior = "zoomX";
+        cursor.behavior = "selectY";
 
         cursor.xAxis = categoryAxis;
         cursor.innerRadius = am4core.percent(40);
@@ -125,6 +359,14 @@ class RadarTimeline extends React.Component{
         cursor.lineX.fill = am4core.color("#000000");
         cursor.lineX.strokeOpacity = 0;
         cursor.fullWidthLineX = true;
+
+        // on click
+        series.columns.template.events.on("hit", function(ev) {
+            var anno_p = startYear + Math.round(yearSlider.start * (endYear - startYear));
+            var provincia_p =  ev.target.dataItem.dataContext.colegio;
+            this.updateDataXY(anno_p, provincia_p);
+            this.actual_province = provincia_p;
+        }, this);
 
         // year slider
         let yearSliderContainer = chart_radial_timeline.createChild(am4core.Container);
@@ -145,8 +387,8 @@ class RadarTimeline extends React.Component{
         function generateRadarData() {
             let data = [];
             let i = 0;
-            for (var continent in temperatures) {
-                let continentData = temperatures[continent];
+            for (var continent in datos_provincia) {
+                let continentData = datos_provincia[continent];
 
                 continentData.sort((a, b) => (a - b));
                 continentData.forEach(function (colegio) {
@@ -166,6 +408,8 @@ class RadarTimeline extends React.Component{
             return data;
         }
 
+        var self = this;
+
 
         function updateRadarData(year) {
             if (currentYear !== year) {
@@ -173,6 +417,9 @@ class RadarTimeline extends React.Component{
                 yearLabel.text = String(currentYear);
                 series.dataFields.valueY = "value" + currentYear;
                 chart_radial_timeline.invalidateRawData();
+                if (self.actual_province!=null){
+                    self.updateDataXY(year, self.actual_province);
+                }
             }
         }
 
@@ -200,8 +447,8 @@ class RadarTimeline extends React.Component{
             axisFill.togglable = true;
 
             axisFill.showSystemTooltip = true;
-            //axisFill.readerTitle = "click to zoom";
-            //axisFill.cursorOverStyle = am4core.MouseCursorStyle.pointer;
+            axisFill.readerTitle = "click to zoom";
+            axisFill.cursorOverStyle = am4core.MouseCursorStyle.pointer;
 
             //axisFill.events.on("hit", function (event) {
             //    let dataItem = event.target.dataItem;
@@ -242,44 +489,7 @@ class RadarTimeline extends React.Component{
 
     createXYChart(){
         var chartXY = am4core.create("chartXY", am4charts.XYChart);
-        chartXY.data = [{
-        "country": "USA",
-        "visits": 2025
-        }, {
-        "country": "China",
-        "visits": 1882
-        }, {
-        "country": "Japan",
-        "visits": 1809
-        }, {
-        "country": "Germany",
-        "visits": 1322
-        }, {
-        "country": "UK",
-        "visits": 1122
-        }, {
-        "country": "France",
-        "visits": 1114
-        }, {
-        "country": "India",
-        "visits": 984
-        }, {
-        "country": "Spain",
-        "visits": 711
-        }, {
-        "country": "Netherlands",
-        "visits": 665
-        }, {
-        "country": "Russia",
-        "visits": 580
-        }, {
-        "country": "South Korea",
-        "visits": 443
-        }, {
-        "country": "Canada",
-        "visits": 441
-        }];
-
+        chartXY.data = this.data_XY; 
         chartXY.padding(40, 40, 40, 40);
 
         var categoryAxis = chartXY.xAxes.push(new am4charts.CategoryAxis());
@@ -298,33 +508,49 @@ class RadarTimeline extends React.Component{
         var series = chartXY.series.push(new am4charts.ColumnSeries());
         series.dataFields.categoryX = "country";
         series.dataFields.valueY = "visits";
-        series.tooltipText = "{valueY.value}"
+        series.tooltipText = "{country}"
         series.columns.template.strokeOpacity = 0;
         series.columns.template.column.cornerRadiusTopRight = 10;
         series.columns.template.column.cornerRadiusTopLeft = 10;
+
+         // cursor
+         let cursor = new am4charts.XYCursor();
+         chartXY.cursor = cursor;
+         cursor.behavior = "selectY";
+
         //series.interpolationDuration = 1500;
         //series.interpolationEasing = am4core.ease.linear;
         var labelBullet = series.bullets.push(new am4charts.LabelBullet());
         labelBullet.label.verticalCenter = "bottom";
         labelBullet.label.dy = -10;
-        labelBullet.label.text = "{values.valueY.workingValue.formatNumber('#.')}";
+        labelBullet.label.text = "{values.valueY.workingValue.formatNumber('#.##')}";
 
         chartXY.zoomOutButton.disabled = true;
 
         // as by default columns of the same series are of the same color, we add adapter which takes colors from chartXY.colors color set
-        series.columns.template.adapter.add("fill", function (fill, target) {
-        return chartXY.colors.getIndex(target.dataItem.index);
+        series.columns.template.adapter.add("fill",function (fill, target) {
+            return chartXY.colors.getIndex(target.dataItem.index);
         });
 
-        setInterval(function () {
-        am4core.array.each(chartXY.data, function (item) {
-        item.visits += Math.round(Math.random() * 200 - 100);
-        item.visits = Math.abs(item.visits);
-        })
-        chartXY.invalidateRawData();
-        }, 2000)
+        // setInterval(function () {
+        //     am4core.array.each(chartXY.data, function (item) {
+        //         item.visits += Math.round(Math.random() * 200 - 100);
+        //         item.visits = Math.abs(item.visits);
+        //     })
+        //     chartXY.invalidateRawData();
+        // }, 2000)
 
         categoryAxis.sortBySeries = series;
+        this.gloabaXYchart = chartXY;
+
+
+        series.columns.template.events.on("hit", function(ev) {
+            var input =  ev.target.dataItem.dataContext;
+            if(this.actual_id_province!=null && this.actual_anno!=null){
+                this.setmapvalues(this.actual_id_province, parseInt(input.canton_id), this.actual_anno);
+            }
+            
+        }, this);
 
     }
 
@@ -337,16 +563,16 @@ class RadarTimeline extends React.Component{
         //chart.geodataSource.url = "http://daticos-geotec.opendata.arcgis.com/datasets/249bc8711c33493a90b292b55ed3abad_0.geojson";
         //chart.geodata = am4geodata_costarica;
         chart.geodata = am4geodata_costarica;
-
-
+        
         /* Set projection */
-        chart.projection = new am4maps.projections.Miller();
+        chart.projection = new am4maps.projections.Mercator();
 
         /* Create map polygon series */
         var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
 
         /* Make map load polygon (like country names) data from GeoJSON */
         polygonSeries.useGeodata = true;
+
 
         /* Configure series */
         var polygonTemplate = polygonSeries.mapPolygons.template;
@@ -371,7 +597,6 @@ class RadarTimeline extends React.Component{
             lastSelected = ev.target;
         }
         })
-
 
         /* Create selected and hover states and set alternative fill color */
         var ss = polygonTemplate.states.create("active");
@@ -402,6 +627,7 @@ class RadarTimeline extends React.Component{
         homeButton.marginBottom = 10;
         homeButton.parent = chart.zoomControl;
         homeButton.insertBefore(chart.zoomControl.plusButton);  
+   
         
         //Agregacion de puntos
         // Add image series
@@ -451,6 +677,9 @@ class RadarTimeline extends React.Component{
         "longitude": 10.330922326542,
         "color":"red"
         }];
+
+        this.mapachart = chart;
+        this.polygonSeriesmap = polygonSeries;
 
 }
     
