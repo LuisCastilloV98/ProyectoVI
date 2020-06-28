@@ -26,10 +26,9 @@ function App() {
         </Container>
       </TabPanel>
       <TabPanel>
-        <Container>
+        <Container fluid>
           <Hierarchy />
         </Container>
-        <Hierarchy />
       </TabPanel>
       <TabPanel>
         <Container>
