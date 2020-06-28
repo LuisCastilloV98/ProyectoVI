@@ -19,7 +19,7 @@ class Hierarchy extends React.Component {
     constructor(props) {
         super(props);
         this.gloabachartRadarChart = null;
-        this.valoresComparar = ["Promedio_2000","Promedio_2001","Promedio_2002"]
+        this.valoresComparar = ["Promedio_2000","Promedio_2001","Promedio_2002"];
 
     }
 
