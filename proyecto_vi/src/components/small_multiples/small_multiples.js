@@ -74,10 +74,8 @@ class SMRow extends React.Component {
     ids.forEach(id => {
       const index = newDPs.find(x => x === id);
       if (index > 0) {
-        console.log('removing', id);
         delete(newDPs[index]);
       } else {
-        console.log('adding', id);
         newDPs.push(id);
       }
     })
