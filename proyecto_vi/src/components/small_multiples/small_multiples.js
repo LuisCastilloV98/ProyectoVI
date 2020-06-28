@@ -3,18 +3,31 @@ import Data from './ejemplo_100_2';
 import Chart from './chart';
 import { Form, Card, Container, Row, Col } from 'react-bootstrap';
 
-const SMCard = ({selectedA, selectedB, columnas, datos, changeCol, dataClick}) => {
-  let xCategory = columnas[selectedA];
+const SMCard = ({
+  selectedColumn,
+  selectedRow,
+  columnas,
+  datos,
+  selectedIds,
+  changeCol,
+  dataClick
+}) => {
+  let xCategory = columnas[selectedColumn];
   let xAxis = datos[xCategory];
-  let yCategory = columnas[selectedB];
+  let yCategory = columnas[selectedRow];
   let yAxis = datos[yCategory];
+
+  const dataClickToId = (event) => {
+    dataClick(event.id);
+  }
+
   return (
     <Card>
       <Card.Title>
         <Form.Control as="select" onChange={(e) => changeCol(e)}>
           {
             columnas.map((x, i) => (
-              <option key={i} value={i} selected={i === selectedB}>{x}</option>
+              <option key={i} value={i} selected={i === selectedRow}>{x}</option>
             ))
           }
         </Form.Control>
@@ -26,7 +39,8 @@ const SMCard = ({selectedA, selectedB, columnas, datos, changeCol, dataClick}) =
           yAxis={yAxis}
           xCategory={xCategory}
           yCategory={yCategory}
-          dataClick={dataClick}
+          selectedIds={selectedIds}
+          dataClick={dataClickToId}
         />
       </Card.Body>
     </Card>
@@ -41,6 +55,7 @@ class SMRow extends React.Component {
     this.state = {
       selectedRow: this.props.selectedRow,
       selectedColumns: [0, 1, 2],
+      selectedDataPointIds: []
     }
   }
 
@@ -54,8 +69,21 @@ class SMRow extends React.Component {
     this.setState({selectedColumns: cols});
   }
 
-  dataClick(event) {
-   
+  selectDataPoints(...ids) {
+    const newDPs = this.state.selectedDataPointIds
+    ids.forEach(id => {
+      const index = newDPs.find(x => x === id);
+      if (index > 0) {
+        console.log('removing', id);
+        delete(newDPs[index]);
+      } else {
+        console.log('adding', id);
+        newDPs.push(id);
+      }
+    })
+    this.setState({
+      selectedDataPointIds: newDPs
+    })
   }
 
   render() {
@@ -76,27 +104,33 @@ class SMRow extends React.Component {
               <SMCard
                 columnas={this.props.columnas}
                 datos={this.props.dataObjects}
-                selectedA={this.state.selectedRow}
-                selectedB={this.state.selectedColumns[0]}
+                selectedColumn={this.state.selectedRow}
+                selectedRow={this.state.selectedColumns[0]}
+                selectedIds={this.state.selectedDataPointIds}
                 changeCol={(e) => this.changeCol(e, 0)}
+                dataClick={(...ids) => this.selectDataPoints(ids)}
               />
             </Col>
             <Col>
               <SMCard
                 columnas={this.props.columnas}
                 datos={this.props.dataObjects}
-                selectedA={this.state.selectedRow}
-                selectedB={this.state.selectedColumns[1]}
+                selectedColumn={this.state.selectedRow}
+                selectedRow={this.state.selectedColumns[1]}
+                selectedIds={this.state.selectedDataPointIds}
                 changeCol={(e) => this.changeCol(e, 1)}
+                dataClick={(...ids) => this.selectDataPoints(ids)}
               />
             </Col>
             <Col>
               <SMCard
                 columnas={this.props.columnas}
                 datos={this.props.dataObjects}
-                selectedA={this.state.selectedRow}
-                selectedB={this.state.selectedColumns[2]}
+                selectedColumn={this.state.selectedRow}
+                selectedRow={this.state.selectedColumns[2]}
+                selectedIds={this.state.selectedDataPointIds}
                 changeCol={(e) => this.changeCol(e, 2)}
+                dataClick={(...ids) => this.selectDataPoints(ids)}
               />
             </Col>
           </Row>
