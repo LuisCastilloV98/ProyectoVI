@@ -12,8 +12,31 @@ class Chart extends React.Component {
   }
 
   selectData() {
+    let zipedData = this.props.xAxis.map((x,i) => {
+      let value = {
+        id: i
+      };
+      value[this.props.xCategory] = x;
+      value[this.props.yCategory] = this.props.yAxis[i];
+      return value;
+    });
 
-    this.setState({areaEnd: null, areaStart: null});
+    let xValues = [this.state.areaStart[0], this.state.areaEnd[0]].sort();
+    let yValues = [this.state.areaStart[1], this.state.areaEnd[1]].sort();
+    let selectedIds = []
+
+    zipedData.forEach((dataPoint, i) => {
+      if (dataPoint[this.props.xCategory] > xValues[0] &&
+          dataPoint[this.props.xCategory] < xValues[1] &&
+          dataPoint[this.props.yCategory] > yValues[0] &&
+          dataPoint[this.props.yCategory] < yValues[1]) {
+        selectedIds.push(i);
+      }
+    });
+
+
+    setTimeout(() => this.props.dataClick(selectedIds), 100);
+    this.setState({areaStart: null, areaEnd: null});
   }
 
   render() {
@@ -43,7 +66,7 @@ class Chart extends React.Component {
           strokeDasharray="3 3" />
         <YAxis dataKey={ this.props.yCategory } name={ this.props.yCategory } tick={{fontSize: 10}} type='number'/>
         <XAxis dataKey={ this.props.xCategory } name={ this.props.xCategory } tick={{fontSize: 10}} type='number'/>
-        <Scatter onClick={this.props.dataClick} name={`${this.props.xCategory}, ${this.props.yCategory}`} data={zipedData} fill="#8884d8" />
+        <Scatter onClick={(e) => this.props.dataClick(e.id)} name={`${this.props.xCategory}, ${this.props.yCategory}`} data={zipedData} fill="#8884d8" />
         <Scatter
           onClick={this.props.dataClick}
           name={`${this.props.xCategory}, ${this.props.yCategory}`}

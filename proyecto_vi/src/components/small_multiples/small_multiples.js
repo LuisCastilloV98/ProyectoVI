@@ -17,10 +17,6 @@ const SMCard = ({
   let yCategory = columnas[selectedRow];
   let yAxis = datos[yCategory];
 
-  const dataClickToId = (event) => {
-    dataClick(event.id);
-  }
-
   return (
     <Card>
       <Card.Title>
@@ -40,7 +36,7 @@ const SMCard = ({
           xCategory={xCategory}
           yCategory={yCategory}
           selectedIds={selectedIds}
-          dataClick={dataClickToId}
+          dataClick={dataClick}
         />
       </Card.Body>
     </Card>
@@ -70,17 +66,11 @@ class SMRow extends React.Component {
   }
 
   selectDataPoints(...ids) {
-    const newDPs = this.state.selectedDataPointIds
-    ids.forEach(id => {
-      const index = newDPs.find(x => x === id);
-      if (index > 0) {
-        delete(newDPs[index]);
-      } else {
-        newDPs.push(id);
-      }
-    })
+    if (ids.length === 0) return;
+    const datos = ids[0][0];
+    console.log(datos);
     this.setState({
-      selectedDataPointIds: newDPs
+      selectedDataPointIds: datos
     })
   }
 
