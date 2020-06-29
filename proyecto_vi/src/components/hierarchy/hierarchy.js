@@ -46,14 +46,14 @@ class Hierarchy extends React.Component {
     create_sankey() {
         let chartSankey = am4core.create("hierarchy", am4charts.SankeyDiagram);
         chartSankey.data = [
-            { "from": "Violencia", "to": "SM", "value": 70 },
-            { "from": "Violencia", "to": "IM", "value": 30 },
-            { "from": "IM", "to": "Violen. Verbal", "value": 7 },
-            { "from": "IM", "to": "Violen. Fisica", "value": 7 },
-            { "from": "IM", "to": "Violen. Escrita", "value": 16 },
-            { "from": "SM", "to": "Violen. Verbal", "value": 14 },
-            { "from": "SM", "to": "Violen. Fisica", "value": 14 },
-            { "from": "SM", "to": "Violen. Escrita", "value": 42 },
+            { "from": "Total", "to": "SM", "value": 610 },
+            { "from": "Total", "to": "IM", "value": 466 },
+
+            { "from": "SM", "to": "Violen", "value": 253 },
+            { "from": "SM", "to": "No violentos", "value": 357 },
+
+            { "from": "IM", "to": "Violen", "value": 133 },
+            { "from": "IM", "to": "No violentos", "value": 333 },
         ]
 
         chartSankey.dataFields.fromName = "from";
