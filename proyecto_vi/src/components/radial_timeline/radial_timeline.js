@@ -6,11 +6,11 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import datos_provincia from "./bachillerato_provincia";
 import datos_canton from "./bachillerato_canton";
 import datos_colegio from "./bachillerato_colegio";
-import {Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 import am4geodata_costarica from '../../assets/data/costarica';
 
 am4core.useTheme(am4themes_animated);
-class RadarTimeline extends React.Component{
+class RadarTimeline extends React.Component {
 
     constructor(props) {
         super(props);
@@ -25,166 +25,248 @@ class RadarTimeline extends React.Component{
         this.polygonSeriesmap = null;
         this.polygonSeriesmap_puntos = null;
 
+        this.state = {
+            anno:0,
+            province:"Sin selección",
+            canton:"Sin selección"
+        }
+
+
     }
 
-    setmapvalues(province, canton, anno){
+    getCantonName(id_province, canton_id){
+
+        for (var i = 0; i < datos_canton.counters.length; i++) {
+            var counter = datos_canton.counters[i];
+            if (counter.Provincia == id_province && counter.Canton ==canton_id ){
+                return counter.Nombre;
+            }
+        }
+
+    }
+
+    setmapvalues(province, canton, anno) {
         //console.log(province, canton, anno);
         var temp = [];
 
         for (var i = 0; i < datos_colegio.colegios.length; i++) {
             var counter = datos_colegio.colegios[i];
             var actual_anno = "";
-            if(counter.Provincia == province && canton ==counter.Canton){
+            if (counter.Provincia == province && canton == counter.Canton) {
                 //console.log(counter);
-                if(anno==2000){
-                    actual_anno=counter.Promedio_2000;
-    
-                }else if(anno ==2001){
-                    actual_anno=counter.Promedio_2001;
-    
+                if (anno == 2000) {
+                    actual_anno = counter.Promedio_2000;
+
+                } else if (anno == 2001) {
+                    actual_anno = counter.Promedio_2001;
+
                 }
-                else if(anno ==2002){
-                    actual_anno=counter.Promedio_2002;
-                    
+                else if (anno == 2002) {
+                    actual_anno = counter.Promedio_2002;
+
                 }
-                else if(anno ==2003){
-                    actual_anno=counter.Promedio_2003;
-                    
+                else if (anno == 2003) {
+                    actual_anno = counter.Promedio_2003;
+
                 }
-                else if(anno ==2004){
-                    actual_anno=counter.Promedio_2004;
-                    
+                else if (anno == 2004) {
+                    actual_anno = counter.Promedio_2004;
+
                 }
-                else if(anno ==2005){
-                    actual_anno=counter.Promedio_2005;
-                    
+                else if (anno == 2005) {
+                    actual_anno = counter.Promedio_2005;
+
                 }
-                else if(anno ==2006){
-                    actual_anno=counter.Promedio_2006;
-                    
+                else if (anno == 2006) {
+                    actual_anno = counter.Promedio_2006;
+
                 }
-                else if(anno ==2007){
-                    actual_anno=counter.Promedio_2007;
-                    
+                else if (anno == 2007) {
+                    actual_anno = counter.Promedio_2007;
+
                 }
-                else if(anno ==2008){
-                    actual_anno=counter.Promedio_2008;
-                    
+                else if (anno == 2008) {
+                    actual_anno = counter.Promedio_2008;
+
                 }
-                else if(anno ==2009){
-                    actual_anno=counter.Promedio_2009;
-                    
+                else if (anno == 2009) {
+                    actual_anno = counter.Promedio_2009;
+
                 }
-                else if(anno ==2010){
-                    actual_anno=counter.Promedio_2010;
-                    
+                else if (anno == 2010) {
+                    actual_anno = counter.Promedio_2010;
+
                 }
-                else if(anno ==2011){
-                    actual_anno=counter.Promedio_2011;
-                    
-                }else if(anno ==2012){
-                    actual_anno=counter.Promedio_2012;
-                    
-                }else if(anno ==2013){
-                    actual_anno=counter.Promedio_2013;
-                    
-                }else if(anno ==2014){
-                    actual_anno=counter.Promedio_2014;
-                    
-                }else{
-                    actual_anno=counter.Promedio_2015;
-                    
+                else if (anno == 2011) {
+                    actual_anno = counter.Promedio_2011;
+
+                } else if (anno == 2012) {
+                    actual_anno = counter.Promedio_2012;
+
+                } else if (anno == 2013) {
+                    actual_anno = counter.Promedio_2013;
+
+                } else if (anno == 2014) {
+                    actual_anno = counter.Promedio_2014;
+
+                } else {
+                    actual_anno = counter.Promedio_2015;
+
                 }
 
                 temp.push({
-                    "title": counter.nombre_ins + " "+ actual_anno,
-                    "latitude":parseFloat(counter.Latitud.replace(",", ".")),
+                    "title": counter.nombre_ins + " " + actual_anno,
+                    "latitude": parseFloat(counter.Latitud.replace(",", ".")),
                     "longitude": parseFloat(counter.Longitud.replace(",", ".")),
-                    "color":"red"
+                    "color": "red"
                 });
 
             }
-        
+
         }
-
-
 
         this.polygonSeriesmap_puntos.data = temp;
         this.actual_id_canton = canton;
-
     }
 
+    colorescantones(anno) {
+        var datos_costa_rica_lista = am4geodata_costarica;
+        var datoslocalescanton = datos_canton;
 
-    setdataxy(anno, provincia){
+        var resultado = [];
+
+
+        for (var i = 0; i < datoslocalescanton.counters.length; i++) {
+            var counter = datoslocalescanton.counters[i];
+            for (var j = 0; j < datos_costa_rica_lista.features.length; j++) {
+                var canton = datos_costa_rica_lista.features[j];
+                if (parseInt(canton.properties.COD_CANT) == counter.Canton && parseInt(canton.properties.COD_PROV) == counter.Provincia) {
+
+                    var actual_anno = "";
+                    if (anno == 2000) {
+                        actual_anno = counter.Promedio_2000;
+                    } else if (anno == 2001) {
+                        actual_anno = counter.Promedio_2001;
+                    } else if (anno == 2002) {
+                        actual_anno = counter.Promedio_2002;
+                    } else if (anno == 2003) {
+                        actual_anno = counter.Promedio_2003;
+                    } else if (anno == 2004) {
+                        actual_anno = counter.Promedio_2004;
+                    } else if (anno == 2005) {
+                        actual_anno = counter.Promedio_2005;
+                    } else if (anno == 2006) {
+                        actual_anno = counter.Promedio_2006;
+                    } else if (anno == 2007) {
+                        actual_anno = counter.Promedio_2007;
+                    } else if (anno == 2008) {
+                        actual_anno = counter.Promedio_2008;
+                    } else if (anno == 2009) {
+                        actual_anno = counter.Promedio_2009;
+                    } else if (anno == 2010) {
+                        actual_anno = counter.Promedio_2010;
+                    } else if (anno == 2011) {
+                        actual_anno = counter.Promedio_2011;
+                    } else if (anno == 2012) {
+                        actual_anno = counter.Promedio_2012;
+                    } else if (anno == 2013) {
+                        actual_anno = counter.Promedio_2013;
+                    } else if (anno == 2014) {
+                        actual_anno = counter.Promedio_2014;
+                    } else {
+                        actual_anno = counter.Promedio_2015;
+                    }
+
+                    var id_add = parseInt(canton["id"]);
+                    var value_add = parseInt(parseFloat(actual_anno) * 100);
+
+                    var new_value = {
+                        id: id_add,
+                        value: value_add
+                    }
+
+                    resultado.push(new_value);
+                    break;
+                }
+
+            }
+
+        }
+
+
+        this.polygonSeriesmap.data = resultado;
+    }
+
+    setdataxy(anno, provincia) {
         var temp = [];
-        
+
         for (var i = 0; i < datos_canton.counters.length; i++) {
             var counter = datos_canton.counters[i];
             var actual_anno = "";
-            if(anno==2000){
-                actual_anno=counter.Promedio_2000;
+            if (anno == 2000) {
+                actual_anno = counter.Promedio_2000;
 
-            }else if(anno ==2001){
-                actual_anno=counter.Promedio_2001;
+            } else if (anno == 2001) {
+                actual_anno = counter.Promedio_2001;
 
             }
-            else if(anno ==2002){
-                actual_anno=counter.Promedio_2002;
-                
+            else if (anno == 2002) {
+                actual_anno = counter.Promedio_2002;
+
             }
-            else if(anno ==2003){
-                actual_anno=counter.Promedio_2003;
-                
+            else if (anno == 2003) {
+                actual_anno = counter.Promedio_2003;
+
             }
-            else if(anno ==2004){
-                actual_anno=counter.Promedio_2004;
-                
+            else if (anno == 2004) {
+                actual_anno = counter.Promedio_2004;
+
             }
-            else if(anno ==2005){
-                actual_anno=counter.Promedio_2005;
-                
+            else if (anno == 2005) {
+                actual_anno = counter.Promedio_2005;
+
             }
-            else if(anno ==2006){
-                actual_anno=counter.Promedio_2006;
-                
+            else if (anno == 2006) {
+                actual_anno = counter.Promedio_2006;
+
             }
-            else if(anno ==2007){
-                actual_anno=counter.Promedio_2007;
-                
+            else if (anno == 2007) {
+                actual_anno = counter.Promedio_2007;
+
             }
-            else if(anno ==2008){
-                actual_anno=counter.Promedio_2008;
-                
+            else if (anno == 2008) {
+                actual_anno = counter.Promedio_2008;
+
             }
-            else if(anno ==2009){
-                actual_anno=counter.Promedio_2009;
-                
+            else if (anno == 2009) {
+                actual_anno = counter.Promedio_2009;
+
             }
-            else if(anno ==2010){
-                actual_anno=counter.Promedio_2010;
-                
+            else if (anno == 2010) {
+                actual_anno = counter.Promedio_2010;
+
             }
-            else if(anno ==2011){
-                actual_anno=counter.Promedio_2011;
-                
-            }else if(anno ==2012){
-                actual_anno=counter.Promedio_2012;
-                
-            }else if(anno ==2013){
-                actual_anno=counter.Promedio_2013;
-                
-            }else if(anno ==2014){
-                actual_anno=counter.Promedio_2014;
-                
-            }else{
-                actual_anno=counter.Promedio_2015;
-                
+            else if (anno == 2011) {
+                actual_anno = counter.Promedio_2011;
+
+            } else if (anno == 2012) {
+                actual_anno = counter.Promedio_2012;
+
+            } else if (anno == 2013) {
+                actual_anno = counter.Promedio_2013;
+
+            } else if (anno == 2014) {
+                actual_anno = counter.Promedio_2014;
+
+            } else {
+                actual_anno = counter.Promedio_2015;
+
             }
 
 
-            if(counter.Provincia==provincia){
+            if (counter.Provincia == provincia) {
                 temp.push({
-                    "country": counter.Nombre +" "+actual_anno,
+                    "country": counter.Nombre + " " + actual_anno,
                     "canton_id": counter.Canton.toString(),
                     "visits": parseFloat(actual_anno)
                 });
@@ -197,155 +279,155 @@ class RadarTimeline extends React.Component{
         this.data_XY = temp;
         this.gloabaXYchart.data = this.data_XY;
         this.gloabaXYchart.invalidateRawData();
-       
+
 
     }
 
-    updatedataxy(anno){
-        
+    updatedataxy(anno) {
+
         for (var i = 0; i < datos_canton.counters.length; i++) {
             var counter = datos_canton.counters[i];
             var actual_anno = "";
-            if(anno==2000){
-                actual_anno=counter.Promedio_2000;
+            if (anno == 2000) {
+                actual_anno = counter.Promedio_2000;
 
-            }else if(anno ==2001){
-                actual_anno=counter.Promedio_2001;
+            } else if (anno == 2001) {
+                actual_anno = counter.Promedio_2001;
 
             }
-            else if(anno ==2002){
-                actual_anno=counter.Promedio_2002;
-                
+            else if (anno == 2002) {
+                actual_anno = counter.Promedio_2002;
+
             }
-            else if(anno ==2003){
-                actual_anno=counter.Promedio_2003;
-                
+            else if (anno == 2003) {
+                actual_anno = counter.Promedio_2003;
+
             }
-            else if(anno ==2004){
-                actual_anno=counter.Promedio_2004;
-                
+            else if (anno == 2004) {
+                actual_anno = counter.Promedio_2004;
+
             }
-            else if(anno ==2005){
-                actual_anno=counter.Promedio_2005;
-                
+            else if (anno == 2005) {
+                actual_anno = counter.Promedio_2005;
+
             }
-            else if(anno ==2006){
-                actual_anno=counter.Promedio_2006;
-                
+            else if (anno == 2006) {
+                actual_anno = counter.Promedio_2006;
+
             }
-            else if(anno ==2007){
-                actual_anno=counter.Promedio_2007;
-                
+            else if (anno == 2007) {
+                actual_anno = counter.Promedio_2007;
+
             }
-            else if(anno ==2008){
-                actual_anno=counter.Promedio_2008;
-                
+            else if (anno == 2008) {
+                actual_anno = counter.Promedio_2008;
+
             }
-            else if(anno ==2009){
-                actual_anno=counter.Promedio_2009;
-                
+            else if (anno == 2009) {
+                actual_anno = counter.Promedio_2009;
+
             }
-            else if(anno ==2010){
-                actual_anno=counter.Promedio_2010;
-                
+            else if (anno == 2010) {
+                actual_anno = counter.Promedio_2010;
+
             }
-            else if(anno ==2011){
-                actual_anno=counter.Promedio_2011;
-                
-            }else if(anno ==2012){
-                actual_anno=counter.Promedio_2012;
-                
-            }else if(anno ==2013){
-                actual_anno=counter.Promedio_2013;
-                
-            }else if(anno ==2014){
-                actual_anno=counter.Promedio_2014;
-                
-            }else{
-                actual_anno=counter.Promedio_2015;
-                
+            else if (anno == 2011) {
+                actual_anno = counter.Promedio_2011;
+
+            } else if (anno == 2012) {
+                actual_anno = counter.Promedio_2012;
+
+            } else if (anno == 2013) {
+                actual_anno = counter.Promedio_2013;
+
+            } else if (anno == 2014) {
+                actual_anno = counter.Promedio_2014;
+
+            } else {
+                actual_anno = counter.Promedio_2015;
+
             }
 
             am4core.array.each(this.data_XY, function (item) {
-                        if(parseInt(item.canton_id) == counter.Canton){
-                         item.visits =  parseFloat(actual_anno);
-                        }
-                    })
+                if (parseInt(item.canton_id) == counter.Canton) {
+                    item.visits = parseFloat(actual_anno);
+                }
+            })
 
         }
 
         this.gloabaXYchart.invalidateRawData();
-    
+
     }
 
-    updateDataXY(anno, provincia){
-        if (provincia=="San Jose") {
-            if(provincia==this.actual_province){
+    updateDataXY(anno, provincia) {
+        if (provincia == "San Jose") {
+            if (provincia == this.actual_province) {
                 this.updatedataxy(anno);
-            }else{
-            this.setdataxy(anno, 1);
+            } else {
+                this.setdataxy(anno, 1);
             }
-            console.log(anno,1);
-          } else if (provincia=="Puntarenas") {
-            if(provincia==this.actual_province){
+            console.log(anno, 1);
+        } else if (provincia == "Puntarenas") {
+            if (provincia == this.actual_province) {
                 this.updatedataxy(anno);
-            }else{
-            this.setdataxy(anno, 6);
-        }
-            console.log(anno,6);
-          } else if (provincia=="Limón") {
-            if(provincia==this.actual_province){
-                this.updatedataxy(anno);
-            }else{
-            this.setdataxy(anno, 7);
-        }
-            console.log(anno,7);
-          }else if (provincia=="Cartago") {
-            if(provincia==this.actual_province){
-                this.updatedataxy(anno);
-            }else{
-            this.setdataxy(anno, 3);
-        }
-            console.log(anno,3);
-          }else if (provincia=="Alajuela") {
-            if(provincia==this.actual_province){
-                this.updatedataxy(anno);
-            }else{
-            this.setdataxy(anno, 2);
-        }
-            console.log(anno,2);
-          }else if (provincia=="Guanacaste") {
-            if(provincia==this.actual_province){
-                this.updatedataxy(anno);
-            }else{
-            this.setdataxy(anno, 5);
-        }
-            console.log(anno,5);
-          }else {
-            if(provincia==this.actual_province){
-                this.updatedataxy(anno);
-            }else{
-            this.setdataxy(anno, 4);
-            console.log(anno,4);
+            } else {
+                this.setdataxy(anno, 6);
             }
-          }
+            console.log(anno, 6);
+        } else if (provincia == "Limón") {
+            if (provincia == this.actual_province) {
+                this.updatedataxy(anno);
+            } else {
+                this.setdataxy(anno, 7);
+            }
+            console.log(anno, 7);
+        } else if (provincia == "Cartago") {
+            if (provincia == this.actual_province) {
+                this.updatedataxy(anno);
+            } else {
+                this.setdataxy(anno, 3);
+            }
+            console.log(anno, 3);
+        } else if (provincia == "Alajuela") {
+            if (provincia == this.actual_province) {
+                this.updatedataxy(anno);
+            } else {
+                this.setdataxy(anno, 2);
+            }
+            console.log(anno, 2);
+        } else if (provincia == "Guanacaste") {
+            if (provincia == this.actual_province) {
+                this.updatedataxy(anno);
+            } else {
+                this.setdataxy(anno, 5);
+            }
+            console.log(anno, 5);
+        } else {
+            if (provincia == this.actual_province) {
+                this.updatedataxy(anno);
+            } else {
+                this.setdataxy(anno, 4);
+                console.log(anno, 4);
+            }
+        }
         console.log(anno, provincia);
     }
 
-    createRadialTimeLine(){
+    createRadialTimeLine() {
         let startYear = 2000;
         let endYear = 2015;
         let currentYear = 2015;
         let colorSet = new am4core.ColorSet();
 
-        let chart_radial_timeline =  am4core.create("radial_timeline", am4charts.RadarChart);
+        let chart_radial_timeline = am4core.create("radial_timeline", am4charts.RadarChart);
         chart_radial_timeline.numberFormatter.numberFormat = "+#.0|#.0|0.0";
         chart_radial_timeline.hiddenState.properties.opacity = 0;
 
         chart_radial_timeline.startAngle = 270 - 180;
         chart_radial_timeline.endAngle = 270 + 180;
 
-        chart_radial_timeline.padding(5,15,5,10)
+        chart_radial_timeline.padding(5, 15, 5, 10)
         chart_radial_timeline.radius = am4core.percent(65);
         chart_radial_timeline.innerRadius = am4core.percent(40);
 
@@ -419,14 +501,15 @@ class RadarTimeline extends React.Component{
         series.tooltipText = "{categoryX}:{valueY.value}";
 
         // this makes columns to be of a different color, depending on value
-        series.heatRules.push({ 
-            target: series.columns.template, 
+        series.heatRules.push({
+            target: series.columns.template,
             property: "fill",
-             minValue: -1, 
-             maxValue: 2, 
-             min: am4core.color("#673AB7"),
-             max: am4core.color("#F44336"), 
-             dataField: "valueY" });
+            minValue: -1,
+            maxValue: 2,
+            min: am4core.color("#673AB7"),
+            max: am4core.color("#F44336"),
+            dataField: "valueY"
+        });
 
 
 
@@ -445,9 +528,12 @@ class RadarTimeline extends React.Component{
         cursor.fullWidthLineX = true;
 
         // on click
-        series.columns.template.events.on("hit", function(ev) {
+        series.columns.template.events.on("hit", function (ev) {
             var anno_p = startYear + Math.round(yearSlider.start * (endYear - startYear));
-            var provincia_p =  ev.target.dataItem.dataContext.colegio;
+            var provincia_p = ev.target.dataItem.dataContext.colegio;
+            this.setState({
+                province:provincia_p
+            });
             this.updateDataXY(anno_p, provincia_p);
             this.actual_province = provincia_p;
         }, this);
@@ -501,12 +587,19 @@ class RadarTimeline extends React.Component{
                 yearLabel.text = String(currentYear);
                 series.dataFields.valueY = "value" + currentYear;
                 chart_radial_timeline.invalidateRawData();
-                if (self.actual_province!=null){
+                if (self.actual_province != null) {
                     self.updateDataXY(year, self.actual_province);
                 }
-                if (self.actual_province!=null &&  self.actual_id_canton!=null){
-                    self.setmapvalues(self.actual_id_province,  self.actual_id_canton, year);
+                if (self.actual_province != null && self.actual_id_canton != null) {
+                    self.setmapvalues(self.actual_id_province, self.actual_id_canton, year);
                 }
+                if (self.actual_anno != null) {
+                    self.colorescantones(self.actual_anno);
+                }
+
+                self.setState({
+                    anno:year
+                });
             }
         }
 
@@ -571,12 +664,13 @@ class RadarTimeline extends React.Component{
             valueAxis.renderer.axisAngle = chart_radial_timeline.startAngle;
         })
 
-        this.chart_radial_timeline =  chart_radial_timeline;
+        this.actual_anno = startYear + Math.round(yearSlider.start * (endYear - startYear));
+        this.chart_radial_timeline = chart_radial_timeline;
     }
 
-    createXYChart(){
+    createXYChart() {
         var chartXY = am4core.create("chartXY", am4charts.XYChart);
-        chartXY.data = this.data_XY; 
+        chartXY.data = this.data_XY;
         chartXY.padding(40, 40, 40, 40);
 
         var categoryAxis = chartXY.xAxes.push(new am4charts.CategoryAxis());
@@ -600,10 +694,10 @@ class RadarTimeline extends React.Component{
         series.columns.template.column.cornerRadiusTopRight = 10;
         series.columns.template.column.cornerRadiusTopLeft = 10;
 
-         // cursor
-         let cursor = new am4charts.XYCursor();
-         chartXY.cursor = cursor;
-         cursor.behavior = "selectY";
+        // cursor
+        let cursor = new am4charts.XYCursor();
+        chartXY.cursor = cursor;
+        cursor.behavior = "selectY";
 
         //series.interpolationDuration = 1500;
         //series.interpolationEasing = am4core.ease.linear;
@@ -615,7 +709,7 @@ class RadarTimeline extends React.Component{
         chartXY.zoomOutButton.disabled = true;
 
         // as by default columns of the same series are of the same color, we add adapter which takes colors from chartXY.colors color set
-        series.columns.template.adapter.add("fill",function (fill, target) {
+        series.columns.template.adapter.add("fill", function (fill, target) {
             return chartXY.colors.getIndex(target.dataItem.index);
         });
 
@@ -631,17 +725,22 @@ class RadarTimeline extends React.Component{
         this.gloabaXYchart = chartXY;
 
 
-        series.columns.template.events.on("hit", function(ev) {
-            var input =  ev.target.dataItem.dataContext;
-            if(this.actual_id_province!=null && this.actual_anno!=null){
+        series.columns.template.events.on("hit", function (ev) {
+            var input = ev.target.dataItem.dataContext;
+            if (this.actual_id_province != null && this.actual_anno != null) {
+                var canton_name = this.getCantonName(this.actual_id_province, parseInt(input.canton_id));
+                this.setState({
+                    canton:canton_name
+                });
+
                 this.setmapvalues(this.actual_id_province, parseInt(input.canton_id), this.actual_anno);
             }
-            
+
         }, this);
 
     }
 
-    createMapChart(){
+    createMapChart() {
         /* Create map instance */
         var chart = am4core.create("chartdiv", am4maps.MapChart);
 
@@ -650,7 +749,7 @@ class RadarTimeline extends React.Component{
         //chart.geodataSource.url = "http://daticos-geotec.opendata.arcgis.com/datasets/249bc8711c33493a90b292b55ed3abad_0.geojson";
         //chart.geodata = am4geodata_costarica;
         chart.geodata = am4geodata_costarica;
-        
+
         /* Set projection */
         chart.projection = new am4maps.projections.Mercator();
 
@@ -665,24 +764,24 @@ class RadarTimeline extends React.Component{
         var polygonTemplate = polygonSeries.mapPolygons.template;
         polygonTemplate.applyOnClones = true;
         polygonTemplate.togglable = true;
-        polygonTemplate.tooltipText = "{NOM_CANT_1}";
+        polygonTemplate.tooltipText = "{NOM_CANT_1}: {value}%";
         polygonTemplate.nonScalingStroke = true;
         polygonTemplate.strokeOpacity = 0.5;
         polygonTemplate.fill = chart.colors.getIndex(0);
         var lastSelected;
-        polygonTemplate.events.on("hit", function(ev) {
-        if (lastSelected) {
-            // This line serves multiple purposes:
-            // 1. Clicking a country twice actually de-activates, the line below
-            //    de-activates it in advance, so the toggle then re-activates, making it
-            //    appear as if it was never de-activated to begin with.
-            // 2. Previously activated countries should be de-activated.
-            lastSelected.isActive = false;
-        }
-        ev.target.series.chart.zoomToMapObject(ev.target);
-        if (lastSelected !== ev.target) {
-            lastSelected = ev.target;
-        }
+        polygonTemplate.events.on("hit", function (ev) {
+            if (lastSelected) {
+                // This line serves multiple purposes:
+                // 1. Clicking a country twice actually de-activates, the line below
+                //    de-activates it in advance, so the toggle then re-activates, making it
+                //    appear as if it was never de-activated to begin with.
+                // 2. Previously activated countries should be de-activated.
+                lastSelected.isActive = false;
+            }
+            ev.target.series.chart.zoomToMapObject(ev.target);
+            if (lastSelected !== ev.target) {
+                lastSelected = ev.target;
+            }
         })
 
         /* Create selected and hover states and set alternative fill color */
@@ -703,8 +802,8 @@ class RadarTimeline extends React.Component{
         chart.zoomControl = new am4maps.ZoomControl();
 
         var homeButton = new am4core.Button();
-        homeButton.events.on("hit", function(){
-        chart.goHome();
+        homeButton.events.on("hit", function () {
+            chart.goHome();
         });
 
         homeButton.icon = new am4core.Sprite();
@@ -713,9 +812,36 @@ class RadarTimeline extends React.Component{
         homeButton.icon.path = "M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8";
         homeButton.marginBottom = 10;
         homeButton.parent = chart.zoomControl;
-        homeButton.insertBefore(chart.zoomControl.plusButton);  
-   
-        
+        homeButton.insertBefore(chart.zoomControl.plusButton);
+
+        //Agregacion de colores
+        //Set min/max fill color for each area
+        polygonSeries.heatRules.push({
+            property: "fill",
+            target: polygonSeries.mapPolygons.template,
+            min: chart.colors.getIndex(1).brighten(1),
+            max: chart.colors.getIndex(1).brighten(-0.3)
+        });
+
+        //Fin de agreacion de colores
+
+        // Set up heat legend
+        let heatLegend = chart.createChild(am4maps.HeatLegend);
+        heatLegend.series = polygonSeries;
+        heatLegend.align = "right";
+        heatLegend.valign = "bottom";
+        heatLegend.width = am4core.percent(20);
+        heatLegend.marginRight = am4core.percent(4);
+        heatLegend.minValue = 0;
+        heatLegend.maxValue = 100;
+
+        // Set up custom heat map legend labels using axis ranges
+        var minRange = heatLegend.valueAxis.axisRanges.create();
+        minRange.value = heatLegend.minValue;
+        var maxRange = heatLegend.valueAxis.axisRanges.create();
+        maxRange.value = heatLegend.maxValue;
+
+
         //Agregacion de puntos
         // Add image series
         var imageSeries = chart.series.push(new am4maps.MapImageSeries());
@@ -733,20 +859,20 @@ class RadarTimeline extends React.Component{
         circle2.propertyFields.fill = "color";
 
 
-        circle2.events.on("inited", function(event){
-        animateBullet(event.target, 1);
+        circle2.events.on("inited", function (event) {
+            animateBullet(event.target, 1);
         })
 
 
         function animateBullet(circle, con) {
-            if(con < 3){
+            if (con < 3) {
                 var animation = circle.animate([
-                    { property: "scale", from: 1, to: 5 }, 
-                    { property: "opacity", from: 1, to: 0 }], 
+                    { property: "scale", from: 1, to: 5 },
+                    { property: "opacity", from: 1, to: 0 }],
                     1000,
                     am4core.ease.circleOut);
-                animation.events.on("animationended", function(event){
-                animateBullet(event.target.object, con+1);
+                animation.events.on("animationended", function (event) {
+                    animateBullet(event.target.object, con + 1);
                 })
             }
         }
@@ -758,9 +884,12 @@ class RadarTimeline extends React.Component{
         this.mapachart = chart;
         this.polygonSeriesmap = polygonSeries;
         this.polygonSeriesmap_puntos = imageSeries;
+        if (this.actual_anno != null) {
+            this.colorescantones(this.actual_anno);
+        }
 
-}
-    
+    }
+
     componentDidMount() {
         this.createRadialTimeLine();
         this.createXYChart();
@@ -782,20 +911,55 @@ class RadarTimeline extends React.Component{
         }
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <Container fluid>
-                <Row> 
+                <Row>
+                    <Col>
+                        <Card bg='info' text='white' >
+                            <Card.Header>Año</Card.Header>
+                            <Card.Body>
+                                <Card.Text>
+                                    {this.state.anno}
+                            </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+
+                    <Col>
+                        <Card bg='info' text='white' >
+                            <Card.Header>Provincia</Card.Header>
+                            <Card.Body>
+                                <Card.Text>
+                                {this.state.province}
+                            </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+
+                    <Col>
+                        <Card bg='info' text='white' >
+                            <Card.Header>Cantón</Card.Header>
+                            <Card.Body>
+                                <Card.Text>
+                                {this.state.canton}
+                            </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+
+                </Row>
+                <Row>
                     <Col>
                         <div id="radial_timeline" style={{ height: "45vh" }}></div>
                     </Col>
                 </Row>
-                <Row> 
+                <Row>
                     <Col>
-                    <div id="chartdiv" style={{ height: "45vh" }}></div>
+                        <div id="chartdiv" style={{ height: "35vh" }}></div>
                     </Col>
                     <Col>
-                    <div id="chartXY" style={{ height: "45vh" }}></div>
+                        <div id="chartXY" style={{ height: "35vh" }}></div>
                     </Col>
                 </Row>
             </Container>
