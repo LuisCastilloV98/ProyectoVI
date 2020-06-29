@@ -19,8 +19,7 @@ class Hierarchy extends React.Component {
     constructor(props) {
         super(props);
         this.gloabachartRadarChart = null;
-        this.valoresComparar = ["Promedio_2000","Promedio_2001","Promedio_2002"];
-
+        this.valoresComparar = ["Tasa Reprobados Total", "Tasa Aprobados Total", "Tasa Repitentes Total", "Tasa Abandono Total", "Tasa Adecuacion Significativa", "Tasa Aprobacion de Bachillerato"];
     }
 
     getdataforPolar(){
