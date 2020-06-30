@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScatterChart, CartesianGrid, XAxis, YAxis, Tooltip, Scatter, ReferenceArea} from 'recharts'
+import { ScatterChart, CartesianGrid, XAxis, YAxis, Tooltip, Scatter, ReferenceArea, Label} from 'recharts'
 
 class Chart extends React.Component {
   constructor(props) {
@@ -34,8 +34,7 @@ class Chart extends React.Component {
       }
     });
 
-
-    setTimeout(() => this.props.dataClick(selectedIds), 100);
+    this.props.dataClick(selectedIds);
     this.setState({areaStart: null, areaEnd: null});
   }
 
@@ -55,7 +54,7 @@ class Chart extends React.Component {
 
     return (
       <ScatterChart width={300} height={300}
-                    onMouseDown={(e) => {this.setState({areaStart: [e.xValue, e.yValue]})}}
+                    onMouseDown={(e) => {this.setState({areaStart: [e.xValue, e.yValue], areaEnd: [e.xValue, e.yValue]})}}
                     onMouseMove={(e) => {e!=null &&
                                          this.state.areaStart != null &&
                                          this.setState({areaEnd: [e.xValue, e.yValue]})
@@ -64,8 +63,12 @@ class Chart extends React.Component {
                     margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
         <CartesianGrid
           strokeDasharray="3 3" />
-        <YAxis dataKey={ this.props.yCategory } name={ this.props.yCategory } tick={{fontSize: 10}} type='number'/>
-        <XAxis dataKey={ this.props.xCategory } name={ this.props.xCategory } tick={{fontSize: 10}} type='number'/>
+        <YAxis dataKey={this.props.yCategory} name={ this.props.yCategory } tick={{fontSize: 10}} type='number'>
+          <Label value={this.props.yCategory} angle={-90} offset={140} position="insideBottom" />
+        </YAxis>
+        <XAxis dataKey={this.props.xCategory} name={ this.props.xCategory } tick={{fontSize: 10}} type='number'>
+          <Label value={this.props.xCategory} offset={0} position="insideBottom" />
+        </XAxis>
         <Scatter onClick={(e) => this.props.dataClick(e.id)} name={`${this.props.xCategory}, ${this.props.yCategory}`} data={zipedData} fill="#8884d8" />
         <Scatter
           onClick={this.props.dataClick}
@@ -79,11 +82,29 @@ class Chart extends React.Component {
               x2={this.state.areaEnd[0]}
               y2={this.state.areaEnd[1]}
               strokeOpacity={0.3}
-            /> : <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+            /> : <Tooltip content={<this.CustomTooltip/>} cursor={{ strokeDasharray: '3 3' }} />
         }
       </ScatterChart>
     )
   }
+
+  CustomTooltip = ({ active, payload }) => {
+    if (active) {
+      const colegio_id = payload[0].payload.id;
+      const colegio = this.props.colegios[colegio_id];
+      return (
+        <div style={{backgroundColor: 'rgba(240, 240, 240, 0.5)'}}>
+          <p className="label">{`Colegio: ${colegio}`}</p>
+          <p className="label">{`${payload[0].name} : ${payload[0].value}`}</p>
+          <p className="label">{`${payload[1].name} : ${payload[1].value}`}</p>
+        </div>
+      );
+    }
+
+    return null;
+  };
+
 }
+
 
 export default Chart;
