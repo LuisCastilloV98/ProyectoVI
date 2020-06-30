@@ -48,11 +48,11 @@ class Hierarchy extends React.Component {
             { "from": "Total", "to": "SM", "value": 610 },
             { "from": "Total", "to": "IM", "value": 466 },
 
-            { "from": "SM", "to": "Violen", "value": 253 },
-            { "from": "SM", "to": "No violentos", "value": 357 },
+            { "from": "SM", "to": "Violentos", "value": 285 },
+            { "from": "SM", "to": "No violentos", "value": 325 },
 
-            { "from": "IM", "to": "Violen", "value": 133 },
-            { "from": "IM", "to": "No violentos", "value": 333 },
+            { "from": "IM", "to": "Violentos", "value": 152 },
+            { "from": "IM", "to": "No violentos", "value": 314 },
         ]
 
         chartSankey.dataFields.fromName = "from";
