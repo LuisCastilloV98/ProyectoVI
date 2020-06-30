@@ -130,6 +130,7 @@ class RadarTimeline extends React.Component {
     }
 
     colorescantones(anno) {
+        //console.log(anno);
         var datos_costa_rica_lista = am4geodata_costarica;
         var datoslocalescanton = datos_canton;
 
@@ -583,6 +584,7 @@ class RadarTimeline extends React.Component {
 
         function updateRadarData(year) {
             if (currentYear !== year) {
+                self.actual_anno = year;
                 currentYear = year;
                 yearLabel.text = String(currentYear);
                 series.dataFields.valueY = "value" + currentYear;
